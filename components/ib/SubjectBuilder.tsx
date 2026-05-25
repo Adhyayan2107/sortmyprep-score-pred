@@ -1,6 +1,8 @@
 'use client'
+
 import { useState } from 'react'
 import type { IBSubjectData, Level } from '@/lib/types'
+import CustomSelect from '@/components/shared/CustomSelect'
 
 const IB_SUBJECTS: { label: string; file: string; levels: Level[] }[] = [
   { label: 'Maths AA', file: 'maths-aa', levels: ['HL', 'SL'] },
@@ -31,15 +33,17 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
 
   const hlCount = selected.filter(s => s.level === 'HL').length
 
-  const availableOptions: { value: string; label: string; wouldExceedHL: boolean }[] = []
+  const availableOptions = []
   for (const s of IB_SUBJECTS) {
     for (const level of s.levels) {
       const alreadyAdded = selected.some(sel => sel.file === s.file && sel.level === level)
       if (!alreadyAdded) {
+        const wouldExceedHL = level === 'HL' && hlCount >= 3
         availableOptions.push({
           value: `${s.file}|${level}`,
           label: `${s.label} ${level}`,
-          wouldExceedHL: level === 'HL' && hlCount >= 3,
+          disabled: wouldExceedHL,
+          meta: wouldExceedHL ? 'HL limit' : undefined,
         })
       }
     }
@@ -77,25 +81,13 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
 
       {selected.length < 6 && availableOptions.length > 0 && (
         <div className="flex gap-2">
-          <select
+          <CustomSelect
             value={chosen}
-            onChange={e => setChosen(e.target.value)}
-            className="flex-1 rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#1a2340] focus:outline-none focus:border-[#2d7dd2] transition-colors cursor-pointer appearance-none"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 12px center',
-              backgroundSize: '18px',
-              paddingRight: '40px',
-            }}
-          >
-            <option value="">Choose subject + level…</option>
-            {availableOptions.map(opt => (
-              <option key={opt.value} value={opt.value} disabled={opt.wouldExceedHL}>
-                {opt.label}{opt.wouldExceedHL ? ' (HL limit reached)' : ''}
-              </option>
-            ))}
-          </select>
+            onChange={setChosen}
+            options={availableOptions}
+            placeholder="Choose subject + level…"
+            className="flex-1"
+          />
           <button
             onClick={handleAdd}
             disabled={!canAdd}

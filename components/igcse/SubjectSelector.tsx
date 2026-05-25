@@ -1,5 +1,7 @@
 'use client'
+
 import type { IGCSESubjectData } from '@/lib/types'
+import CustomSelect from '@/components/shared/CustomSelect'
 
 const SUBJECTS = [
   { label: 'Mathematics', file: 'mathematics' },
@@ -13,6 +15,8 @@ const SUBJECTS = [
   { label: 'History', file: 'history' },
   { label: 'Geography', file: 'geography' },
 ]
+
+const OPTIONS = SUBJECTS.map(s => ({ value: s.file, label: s.label }))
 
 interface Props {
   selectedFile: string
@@ -31,23 +35,12 @@ export default function SubjectSelector({ selectedFile, onSubjectChange }: Props
       <label className="block text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-3">
         Select Subject
       </label>
-      <select
+      <CustomSelect
         value={selectedFile}
-        onChange={e => handleChange(e.target.value)}
-        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-[#1a2340] focus:outline-none focus:border-[#2d7dd2] transition-colors cursor-pointer appearance-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'right 12px center',
-          backgroundSize: '18px',
-          paddingRight: '40px',
-        }}
-      >
-        <option value="">Choose a subject…</option>
-        {SUBJECTS.map(s => (
-          <option key={s.file} value={s.file}>{s.label}</option>
-        ))}
-      </select>
+        onChange={handleChange}
+        options={OPTIONS}
+        placeholder="Choose a subject…"
+      />
     </div>
   )
 }
