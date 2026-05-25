@@ -1,0 +1,16 @@
+{
+  "subject": "Mathematics: Analysis & Approaches",
+  "code": "MathsAA",
+  "level": "SL",
+  "ia": { "maxMark": 20, "weight": 0.20 },
+  "papers": [
+    { "name": "Paper 1 (No Calculator)", "maxMark": 80, "weight": 0.40 },
+    { "name": "Paper 2 (Calculator)", "maxMark": 80, "weight": 0.40 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "7": 78, "6": 63, "5": 49, "4": 36, "3": 25, "2": 14, "1": 0 } },
+    { "id": "Nov2023", "boundaries": { "7": 80, "6": 65, "5": 51, "4": 38, "3": 27, "2": 16, "1": 0 } },
+    { "id": "May2023", "boundaries": { "7": 76, "6": 61, "5": 47, "4": 34, "3": 23, "2": 13, "1": 0 } },
+    { "id": "Nov2022", "boundaries": { "7": 79, "6": 64, "5": 50, "4": 37, "3": 26, "2": 15, "1": 0 } }
+  ]
+}

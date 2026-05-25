@@ -1,0 +1,15 @@
+{
+  "subject": "Computer Science",
+  "board": "CIE",
+  "syllabusCode": "0478",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 1 (Theory)", "maxMark": 75, "weight": 0.50 },
+    { "name": "Paper 2 (Problem Solving & Programming)", "maxMark": 50, "weight": 0.50 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 81, "A": 67, "B": 53, "C": 40, "D": 30, "E": 20 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 79, "A": 65, "B": 51, "C": 38, "D": 28, "E": 18 } },
+    { "id": "May2023", "boundaries": { "Astar": 83, "A": 69, "B": 54, "C": 41, "D": 31, "E": 21 } }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "subject": "History",
+  "board": "CIE",
+  "syllabusCode": "0470",
+  "track": "core",
+  "components": [
+    { "name": "Paper 1 (Core Content)", "maxMark": 60, "weight": 0.40 },
+    { "name": "Paper 2 (Depth Study)", "maxMark": 60, "weight": 0.40 },
+    { "name": "Paper 4 (Alternative to Coursework)", "maxMark": 40, "weight": 0.20 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 79, "A": 65, "B": 51, "C": 38, "D": 28, "E": 18, "F": 11, "G": 5 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 77, "A": 63, "B": 49, "C": 36, "D": 26, "E": 16, "F": 10, "G": 4 } },
+    { "id": "May2023", "boundaries": { "Astar": 81, "A": 67, "B": 52, "C": 39, "D": 29, "E": 19, "F": 12, "G": 6 } }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "subject": "Chemistry",
+  "board": "CIE",
+  "syllabusCode": "0620",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 2 (Multiple Choice Extended)", "maxMark": 40, "weight": 0.30 },
+    { "name": "Paper 4 (Theory Extended)", "maxMark": 80, "weight": 0.50 },
+    { "name": "Paper 6 (Alternative to Practical)", "maxMark": 40, "weight": 0.20 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 85, "A": 71, "B": 57, "C": 44, "D": 33, "E": 22 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 83, "A": 69, "B": 55, "C": 42, "D": 32, "E": 21 } },
+    { "id": "May2023", "boundaries": { "Astar": 87, "A": 73, "B": 58, "C": 45, "D": 34, "E": 23 } }
+  ]
+}

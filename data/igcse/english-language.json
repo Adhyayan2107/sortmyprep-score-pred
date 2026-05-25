@@ -1,0 +1,15 @@
+{
+  "subject": "English Language",
+  "board": "CIE",
+  "syllabusCode": "0500",
+  "track": "core",
+  "components": [
+    { "name": "Paper 1 (Reading)", "maxMark": 40, "weight": 0.50 },
+    { "name": "Paper 2 (Directed Writing & Composition)", "maxMark": 50, "weight": 0.50 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 82, "A": 70, "B": 57, "C": 44, "D": 33, "E": 22, "F": 14, "G": 7 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 80, "A": 68, "B": 55, "C": 42, "D": 31, "E": 20, "F": 12, "G": 5 } },
+    { "id": "May2023", "boundaries": { "Astar": 84, "A": 72, "B": 59, "C": 46, "D": 35, "E": 24, "F": 15, "G": 8 } }
+  ]
+}

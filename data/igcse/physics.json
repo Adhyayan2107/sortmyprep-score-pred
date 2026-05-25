@@ -1,0 +1,16 @@
+{
+  "subject": "Physics",
+  "board": "CIE",
+  "syllabusCode": "0625",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 2 (Multiple Choice Extended)", "maxMark": 40, "weight": 0.30 },
+    { "name": "Paper 4 (Theory Extended)", "maxMark": 80, "weight": 0.50 },
+    { "name": "Paper 6 (Alternative to Practical)", "maxMark": 40, "weight": 0.20 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 84, "A": 70, "B": 56, "C": 43, "D": 33, "E": 22 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 82, "A": 68, "B": 54, "C": 41, "D": 31, "E": 21 } },
+    { "id": "May2023", "boundaries": { "Astar": 86, "A": 72, "B": 57, "C": 44, "D": 34, "E": 23 } }
+  ]
+}
