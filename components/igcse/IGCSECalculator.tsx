@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { IGCSESubjectData } from '@/lib/types'
 import { calculateIGCSEGrade } from '@/lib/igcse-calc'
 import { getStoredEmail } from '@/lib/email-gate'
@@ -19,6 +19,7 @@ export default function IGCSECalculator() {
   const [mode, setMode] = useState<Mode>('predict')
   const [hasEmail, setHasEmail] = useState(false)
   const [showGate, setShowGate] = useState(false)
+  const gateTriggered = useRef(false)
 
   useEffect(() => {
     if (getStoredEmail()) setHasEmail(true)
@@ -46,6 +47,13 @@ export default function IGCSECalculator() {
   const result = subject && hasValidMark
     ? calculateIGCSEGrade(subject.components, marks, subject.sessions)
     : null
+
+  useEffect(() => {
+    if (result && !hasEmail && !gateTriggered.current) {
+      gateTriggered.current = true
+      setShowGate(true)
+    }
+  }, [result, hasEmail])
 
   return (
     <div>
@@ -89,18 +97,7 @@ export default function IGCSECalculator() {
             </>
           )}
 
-          {mode === 'predict' && result && !hasEmail && (
-            <button
-              onClick={() => setShowGate(true)}
-              className="w-full bg-white rounded-2xl border-2 border-dashed border-[#2d7dd2]/40 p-10 text-center hover:border-[#2d7dd2] hover:bg-[#eff6ff] transition-all group"
-            >
-              <div className="text-4xl mb-3">🔒</div>
-              <p className="text-sm font-bold text-[#1a2340] group-hover:text-[#2d7dd2] transition-colors">Your grade is ready</p>
-              <p className="text-xs text-[#94a3b8] mt-1">Tap to enter your email and see your result</p>
-            </button>
-          )}
-
-          {mode === 'predict' && !hasValidMark && (
+{mode === 'predict' && !hasValidMark && (
             <div className="bg-white rounded-2xl border-2 border-dashed border-gray-200 p-10 text-center">
               <div className="text-4xl mb-3">📝</div>
               <p className="text-sm font-semibold text-[#94a3b8]">Enter your marks above</p>
