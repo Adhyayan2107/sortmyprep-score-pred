@@ -1,6 +1,8 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import CustomSelect from '@/components/shared/CustomSelect'
+import EmailGateModal from '@/components/shared/EmailGateModal'
+import { getStoredEmail } from '@/lib/email-gate'
 
 type WBoard = 'igcse' | 'as' | 'alevel'
 
@@ -130,6 +132,12 @@ export default function WhatIfCalculator() {
   const [marks, setMarks] = useState<number[]>([])
   const [xIdx, setXIdx] = useState(0)
   const [yIdx, setYIdx] = useState(1)
+  const [hasEmail, setHasEmail] = useState(false)
+  const [showGate, setShowGate] = useState(false)
+
+  useEffect(() => {
+    if (getStoredEmail()) setHasEmail(true)
+  }, [])
 
   const handleBoardChange = (b: WBoard) => {
     setBoard(b)
@@ -269,8 +277,31 @@ export default function WhatIfCalculator() {
             </div>
           </div>
 
+          {/* Results — gated behind email */}
+          {!hasEmail && currentGrade && (
+            <div
+              className="relative cursor-pointer select-none mb-4"
+              onClick={() => setShowGate(true)}
+            >
+              <div className="blur-sm pointer-events-none opacity-70 rounded-2xl overflow-hidden">
+                <div className="rounded-2xl p-5 text-center" style={{ backgroundColor: '#f0fdf4' }}>
+                  <p className="text-xs font-bold uppercase tracking-widest mb-1 opacity-60 text-green-800">Predicted Grade</p>
+                  <p className="text-6xl font-black text-green-700">A</p>
+                  <p className="text-xs mt-2 opacity-70 font-medium text-green-700">Weighted score: 87.5%</p>
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center rounded-2xl">
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 px-6 py-4 text-center">
+                  <div className="text-2xl mb-1">🔒</div>
+                  <p className="text-sm font-bold text-[#1a2340]">Tap to unlock your grade</p>
+                  <p className="text-xs text-[#94a3b8] mt-1">One-time email · free forever</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Live grade card */}
-          {currentGrade && gradeStyle && (
+          {hasEmail && currentGrade && gradeStyle && (
             <div
               className="rounded-2xl p-5 mb-4 text-center relative overflow-hidden"
               style={{ backgroundColor: gradeStyle.bg }}
@@ -305,7 +336,7 @@ export default function WhatIfCalculator() {
           )}
 
           {/* Criss-Cross Grid */}
-          {subject.components.length >= 2 && (
+          {hasEmail && subject.components.length >= 2 && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
               <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-1">Criss Cross</p>
               <p className="text-xs text-[#94a3b8] mb-4">Every grade outcome for any two papers — your estimate is highlighted</p>
@@ -410,7 +441,7 @@ export default function WhatIfCalculator() {
           )}
 
           {/* Sensitivity strip */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          {hasEmail && <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
             <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-1">Grade Sensitivity</p>
             <p className="text-xs text-[#94a3b8] mb-4">How each paper affects your grade if you adjust by ±5 marks</p>
             <div className="space-y-3">
@@ -450,8 +481,12 @@ export default function WhatIfCalculator() {
               })}
             </div>
             <p className="text-[10px] text-[#94a3b8] mt-3 text-center">Outlined = your current mark</p>
-          </div>
+          </div>}
         </>
+      )}
+
+      {showGate && (
+        <EmailGateModal onComplete={() => { setHasEmail(true); setShowGate(false) }} />
       )}
     </div>
   )
