@@ -1,0 +1,15 @@
+{
+  "subject": "Environmental Management",
+  "board": "CIE",
+  "syllabusCode": "0680",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 1 (Multiple Choice)", "maxMark": 40, "weight": 0.33 },
+    { "name": "Paper 2 (Environmental Management)", "maxMark": 80, "weight": 0.67 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 77, "A": 63, "B": 50, "C": 38, "D": 28, "E": 18 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 75, "A": 61, "B": 48, "C": 36, "D": 26, "E": 16 } },
+    { "id": "May2023", "boundaries": { "Astar": 79, "A": 65, "B": 52, "C": 40, "D": 30, "E": 20 } }
+  ]
+}

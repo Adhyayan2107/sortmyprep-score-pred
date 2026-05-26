@@ -180,7 +180,7 @@ export default function ASCalculator() {
         <div className="bg-white rounded-2xl border-2 border-dashed border-gray-200 p-12 text-center">
           <div className="text-5xl mb-4">📚</div>
           <p className="text-base font-bold text-[#1a2340]">Select a subject to get started</p>
-          <p className="text-sm text-[#94a3b8] mt-1">8 AS Level subjects available</p>
+          <p className="text-sm text-[#94a3b8] mt-1">18 AS Level subjects available</p>
         </div>
       )}
 

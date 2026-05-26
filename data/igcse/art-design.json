@@ -1,0 +1,15 @@
+{
+  "subject": "Art & Design",
+  "board": "CIE",
+  "syllabusCode": "0400",
+  "track": "extended",
+  "components": [
+    { "name": "Component 1 (Portfolio)", "maxMark": 60, "weight": 0.40 },
+    { "name": "Component 2 (Examination Piece)", "maxMark": 60, "weight": 0.60 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 80, "A": 66, "B": 53, "C": 41, "D": 30, "E": 20 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 78, "A": 64, "B": 51, "C": 39, "D": 28, "E": 18 } },
+    { "id": "May2023", "boundaries": { "Astar": 82, "A": 68, "B": 55, "C": 43, "D": 32, "E": 22 } }
+  ]
+}

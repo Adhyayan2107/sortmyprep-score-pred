@@ -1,0 +1,16 @@
+{
+  "subject": "ICT",
+  "board": "CIE",
+  "syllabusCode": "0417",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 1 (Theory)", "maxMark": 100, "weight": 0.40 },
+    { "name": "Paper 2 (Practical Test A)", "maxMark": 80, "weight": 0.30 },
+    { "name": "Paper 3 (Practical Test B)", "maxMark": 80, "weight": 0.30 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 77, "A": 63, "B": 50, "C": 38, "D": 28, "E": 18 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 75, "A": 61, "B": 48, "C": 36, "D": 26, "E": 16 } },
+    { "id": "May2023", "boundaries": { "Astar": 79, "A": 65, "B": 52, "C": 40, "D": 30, "E": 20 } }
+  ]
+}

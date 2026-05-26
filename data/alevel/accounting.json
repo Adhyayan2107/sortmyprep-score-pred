@@ -1,0 +1,16 @@
+{
+  "subject": "Accounting",
+  "board": "CIE",
+  "syllabusCode": "9706",
+  "components": [
+    { "name": "Paper 1 (Multiple Choice — AS)", "maxMark": 30, "weight": 0.15 },
+    { "name": "Paper 2 (Structured Questions — AS)", "maxMark": 90, "weight": 0.35 },
+    { "name": "Paper 3 (Multiple Choice — A Level)", "maxMark": 30, "weight": 0.15 },
+    { "name": "Paper 4 (Problem Solving)", "maxMark": 90, "weight": 0.35 }
+  ],
+  "sessions": [
+    { "id": "MJ2024", "boundaries": { "Astar": 82, "A": 69, "B": 59, "C": 49, "D": 39, "E": 29 } },
+    { "id": "ON2023", "boundaries": { "Astar": 80, "A": 67, "B": 57, "C": 47, "D": 37, "E": 27 } },
+    { "id": "MJ2023", "boundaries": { "Astar": 84, "A": 71, "B": 61, "C": 51, "D": 41, "E": 31 } }
+  ]
+}

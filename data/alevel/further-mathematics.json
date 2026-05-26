@@ -1,0 +1,15 @@
+{
+  "subject": "Further Mathematics",
+  "board": "CIE",
+  "syllabusCode": "9231",
+  "components": [
+    { "name": "Paper 1 (Further Pure Mathematics 1)", "maxMark": 100, "weight": 0.34 },
+    { "name": "Paper 2 (Further Pure Mathematics 2)", "maxMark": 100, "weight": 0.33 },
+    { "name": "Paper 3 (Further Statistics / Mechanics)", "maxMark": 50, "weight": 0.33 }
+  ],
+  "sessions": [
+    { "id": "MJ2024", "boundaries": { "Astar": 87, "A": 74, "B": 64, "C": 54, "D": 44, "E": 34 } },
+    { "id": "ON2023", "boundaries": { "Astar": 85, "A": 72, "B": 62, "C": 52, "D": 42, "E": 32 } },
+    { "id": "MJ2023", "boundaries": { "Astar": 89, "A": 76, "B": 66, "C": 56, "D": 46, "E": 36 } }
+  ]
+}

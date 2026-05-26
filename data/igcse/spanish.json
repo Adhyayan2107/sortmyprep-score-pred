@@ -1,0 +1,16 @@
+{
+  "subject": "Spanish",
+  "board": "CIE",
+  "syllabusCode": "0530",
+  "track": "extended",
+  "components": [
+    { "name": "Paper 2 (Listening — Extended)", "maxMark": 45, "weight": 0.30 },
+    { "name": "Paper 3 (Speaking)", "maxMark": 60, "weight": 0.30 },
+    { "name": "Paper 4 (Reading & Writing — Extended)", "maxMark": 80, "weight": 0.40 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "Astar": 83, "A": 69, "B": 56, "C": 43, "D": 32, "E": 21 } },
+    { "id": "Nov2023", "boundaries": { "Astar": 81, "A": 67, "B": 54, "C": 41, "D": 30, "E": 19 } },
+    { "id": "May2023", "boundaries": { "Astar": 85, "A": 71, "B": 58, "C": 45, "D": 34, "E": 22 } }
+  ]
+}
