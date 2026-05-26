@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Board } from '@/lib/types'
 import BoardSwitcher from '@/components/BoardSwitcher'
 import IGCSECalculator from '@/components/igcse/IGCSECalculator'
@@ -53,10 +54,9 @@ export default function Home() {
       {/* Sticky header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="sortmyprep" width={28} height={28} className="rounded-md" />
-            <span className="text-lg font-black text-[#1a2340] tracking-tight">sortmyprep</span>
-          </div>
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="sortmyprep" width={36} height={36} className="rounded-md" />
+          </Link>
           <div className="flex items-center gap-2">
             <ShareButton />
             <BoardSwitcher active={board} onChange={handleBoardChange} />
@@ -73,7 +73,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-xs font-semibold text-[#2d7dd2] mb-4 shadow-sm hover:border-[#2d7dd2] hover:shadow-md transition-all"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#2d7dd2] animate-pulse" />
-          Level up your prep at sortmyprep.com →
+          Level up your prep at sortmyprep.com
         </a>
         <h1 className="text-3xl sm:text-4xl font-black text-[#1a2340] tracking-tight leading-tight">
           Know your grade<br />

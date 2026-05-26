@@ -54,14 +54,11 @@ export default function ComponentInputs({ components, marks, onChange, lockedInd
                     type="number"
                     min={0}
                     max={comp.maxMark}
-                    disabled={isLocked}
                     value={mark ?? ''}
                     onChange={e => onChange(i, e.target.value === '' ? null : Number(e.target.value))}
                     placeholder="—"
                     className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-base font-black focus:outline-none transition-colors ${
-                      isLocked
-                        ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                        : isError
+                      isError
                         ? 'border-red-400 bg-red-50 text-red-700'
                         : 'border-gray-200 text-[#1a2340] focus:border-[#2d7dd2]'
                     }`}
