@@ -1,12 +1,14 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { IGCSESubjectData } from '@/lib/types'
 import { calculateIGCSEGrade } from '@/lib/igcse-calc'
+import { getStoredEmail } from '@/lib/email-gate'
 import SubjectSelector from './SubjectSelector'
 import ComponentInputs from './ComponentInputs'
 import GradeOutput from './GradeOutput'
 import GradeBar from './GradeBar'
 import ReverseMode from './ReverseMode'
+import EmailGateModal from '@/components/shared/EmailGateModal'
 
 type Mode = 'predict' | 'reverse'
 
@@ -15,6 +17,12 @@ export default function IGCSECalculator() {
   const [selectedFile, setSelectedFile] = useState('')
   const [marks, setMarks] = useState<(number | null)[]>([])
   const [mode, setMode] = useState<Mode>('predict')
+  const [hasEmail, setHasEmail] = useState(false)
+  const [showGate, setShowGate] = useState(false)
+
+  useEffect(() => {
+    if (getStoredEmail()) setHasEmail(true)
+  }, [])
 
   const handleSubjectChange = (data: IGCSESubjectData, file: string) => {
     setSubject(data)
@@ -74,11 +82,22 @@ export default function IGCSECalculator() {
             lockedIndices={mode === 'reverse' ? lockedIndices : []}
           />
 
-          {mode === 'predict' && result && (
+          {mode === 'predict' && result && hasEmail && (
             <>
               <GradeOutput result={result} isPartial={isPartial} />
               <GradeBar result={result} score={result.weightedScore} />
             </>
+          )}
+
+          {mode === 'predict' && result && !hasEmail && (
+            <button
+              onClick={() => setShowGate(true)}
+              className="w-full bg-white rounded-2xl border-2 border-dashed border-[#2d7dd2]/40 p-10 text-center hover:border-[#2d7dd2] hover:bg-[#eff6ff] transition-all group"
+            >
+              <div className="text-4xl mb-3">🔒</div>
+              <p className="text-sm font-bold text-[#1a2340] group-hover:text-[#2d7dd2] transition-colors">Your grade is ready</p>
+              <p className="text-xs text-[#94a3b8] mt-1">Tap to enter your email and see your result</p>
+            </button>
           )}
 
           {mode === 'predict' && !hasValidMark && (
@@ -105,6 +124,10 @@ export default function IGCSECalculator() {
           <p className="text-base font-bold text-[#1a2340]">Select a subject to get started</p>
           <p className="text-sm text-[#94a3b8] mt-1">10 IGCSE subjects available</p>
         </div>
+      )}
+
+      {showGate && (
+        <EmailGateModal onComplete={() => { setHasEmail(true); setShowGate(false) }} />
       )}
     </div>
   )

@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { IBGrade, TOKEEGrade, IBCoreMatrix } from '@/lib/types'
 import type { SelectedSubject } from './SubjectBuilder'
 import SubjectBuilder from './SubjectBuilder'
 import SubjectCard from './SubjectCard'
 import CoreCalculator from './CoreCalculator'
 import DiplomaPanel from './DiplomaPanel'
+import EmailGateModal from '@/components/shared/EmailGateModal'
 import { calculateDiploma } from '@/lib/ib-calc'
+import { getStoredEmail } from '@/lib/email-gate'
 import coreMatrix from '@/data/ib-core-matrix.json'
 
 export default function IBCalculator() {
@@ -17,7 +19,13 @@ export default function IBCalculator() {
   const [tokGrade, setTokGrade] = useState<TOKEEGrade | null>(null)
   const [eeGrade, setEeGrade] = useState<TOKEEGrade | null>(null)
   const [showSummary, setShowSummary] = useState(false)
+  const [hasEmail, setHasEmail] = useState(false)
+  const [showGate, setShowGate] = useState(false)
   const summaryRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (getStoredEmail()) setHasEmail(true)
+  }, [])
 
   const handleAdd = (subject: SelectedSubject) => {
     setSubjects(prev => [...prev, subject])
@@ -63,11 +71,20 @@ export default function IBCalculator() {
   const canCheck = completedCount > 0
   const progressPct = subjects.length === 0 ? 0 : Math.round((completedCount / Math.max(subjects.length, 1)) * 100)
 
-  const handleCheckSummary = () => {
+  const revealSummary = () => {
     setShowSummary(true)
-    setTimeout(() => {
-      summaryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 50)
+    setTimeout(() => summaryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+  }
+
+  const handleCheckSummary = () => {
+    if (!hasEmail) { setShowGate(true); return }
+    revealSummary()
+  }
+
+  const handleEmailComplete = () => {
+    setHasEmail(true)
+    setShowGate(false)
+    revealSummary()
   }
 
   return (
@@ -117,6 +134,8 @@ export default function IBCalculator() {
           <p className="text-[#94a3b8] text-sm">Add subjects above to build your IB diploma calculator</p>
         </div>
       )}
+
+      {showGate && <EmailGateModal onComplete={handleEmailComplete} />}
 
       {/* Sticky bottom progress bar — only when subjects are added */}
       {subjects.length > 0 && (
