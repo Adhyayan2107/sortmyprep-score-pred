@@ -3,7 +3,43 @@ export type IBGrade = 1 | 2 | 3 | 4 | 5 | 6 | 7
 export type TOKEEGrade = 'A' | 'B' | 'C' | 'D' | 'E'
 export type Track = 'core' | 'extended'
 export type Level = 'HL' | 'SL'
-export type Board = 'igcse' | 'ib'
+export type Board = 'igcse' | 'as' | 'ib'
+export type ASGrade = 'A' | 'B' | 'C' | 'D' | 'E' | 'U'
+
+export interface ASComponent {
+  name: string
+  maxMark: number
+  weight: number
+}
+
+export interface ASBoundary {
+  A: number
+  B: number
+  C: number
+  D: number
+  E: number
+}
+
+export interface ASSession {
+  id: string
+  boundaries: ASBoundary
+}
+
+export interface ASSubjectData {
+  subject: string
+  board: string
+  syllabusCode: string
+  components: ASComponent[]
+  sessions: ASSession[]
+}
+
+export interface ASResult {
+  weightedScore: number
+  predictedGrade: ASGrade
+  conservativeGrade: ASGrade
+  optimisticGrade: ASGrade
+  boundaryRanges: { grade: ASGrade; min: number; max: number }[]
+}
 
 export interface IGCSEComponent {
   name: string
