@@ -53,9 +53,9 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Sticky header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="sortmyprep" width={44} height={44} className="rounded-md" />
+            <Image src="/logo.png" alt="sortmyprep" width={1010} height={1061} style={{ height: '56px', width: 'auto' }} className="rounded-md" />
           </Link>
           <div className="flex items-center gap-2">
             <ShareButton />
