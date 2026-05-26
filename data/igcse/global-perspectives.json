@@ -4,13 +4,33 @@
   "syllabusCode": "0457",
   "track": "extended",
   "components": [
-    { "name": "Paper 1 (Written Examination)", "maxMark": 80, "weight": 0.50 },
-    { "name": "Component 2 (Team Project)", "maxMark": 40, "weight": 0.25 },
-    { "name": "Component 3 (Individual Report)", "maxMark": 40, "weight": 0.25 }
+    {
+      "name": "Component 1 (Written Examination)",
+      "maxMark": 70,
+      "weight": 0.35
+    },
+    {
+      "name": "Component 2 (Team Project)",
+      "maxMark": 60,
+      "weight": 0.3
+    },
+    {
+      "name": "Component 3 (Individual Report)",
+      "maxMark": 70,
+      "weight": 0.35
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 78, "A": 64, "B": 51, "C": 39, "D": 28, "E": 18 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 76, "A": 62, "B": 49, "C": 37, "D": 26, "E": 16 } },
-    { "id": "May2023", "boundaries": { "Astar": 80, "A": 66, "B": 53, "C": 41, "D": 30, "E": 20 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

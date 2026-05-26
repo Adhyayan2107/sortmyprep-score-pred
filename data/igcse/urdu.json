@@ -4,12 +4,28 @@
   "syllabusCode": "0539",
   "track": "extended",
   "components": [
-    { "name": "Paper 1 (Reading)", "maxMark": 50, "weight": 0.50 },
-    { "name": "Paper 2 (Writing)", "maxMark": 50, "weight": 0.50 }
+    {
+      "name": "Paper 1 (Reading)",
+      "maxMark": 50,
+      "weight": 0.5
+    },
+    {
+      "name": "Paper 2 (Writing)",
+      "maxMark": 50,
+      "weight": 0.5
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 83, "A": 69, "B": 56, "C": 43, "D": 32, "E": 21 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 81, "A": 67, "B": 54, "C": 41, "D": 30, "E": 19 } },
-    { "id": "May2023", "boundaries": { "Astar": 85, "A": 71, "B": 58, "C": 45, "D": 34, "E": 22 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

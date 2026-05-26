@@ -3,15 +3,43 @@
   "board": "CIE",
   "syllabusCode": "9701",
   "components": [
-    { "name": "Paper 1: Multiple Choice (AS)", "maxMark": 40, "weight": 0.13 },
-    { "name": "Paper 2: AS Level Structured Questions", "maxMark": 60, "weight": 0.19 },
-    { "name": "Paper 3: Advanced Practical Skills 1", "maxMark": 40, "weight": 0.08 },
-    { "name": "Paper 4: A Level Structured Questions", "maxMark": 100, "weight": 0.40 },
-    { "name": "Paper 5: Planning, Analysis & Evaluation", "maxMark": 30, "weight": 0.20 }
+    {
+      "name": "Paper 1: Multiple Choice (AS)",
+      "maxMark": 40,
+      "weight": 0.155
+    },
+    {
+      "name": "Paper 2: AS Level Structured Questions",
+      "maxMark": 60,
+      "weight": 0.23
+    },
+    {
+      "name": "Paper 3: Advanced Practical Skills 1",
+      "maxMark": 40,
+      "weight": 0.115
+    },
+    {
+      "name": "Paper 4: A Level Structured Questions",
+      "maxMark": 100,
+      "weight": 0.385
+    },
+    {
+      "name": "Paper 5: Planning, Analysis & Evaluation",
+      "maxMark": 30,
+      "weight": 0.115
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "Astar": 83, "A": 69, "B": 59, "C": 49, "D": 39, "E": 29 } },
-    { "id": "ON2023", "boundaries": { "Astar": 81, "A": 67, "B": 57, "C": 47, "D": 37, "E": 27 } },
-    { "id": "MJ2023", "boundaries": { "Astar": 85, "A": 71, "B": 60, "C": 49, "D": 38, "E": 28 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

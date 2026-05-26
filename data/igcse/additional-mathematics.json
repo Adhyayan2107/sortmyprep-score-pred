@@ -4,12 +4,28 @@
   "syllabusCode": "0606",
   "track": "extended",
   "components": [
-    { "name": "Paper 1 (Non-Calculator)", "maxMark": 80, "weight": 0.50 },
-    { "name": "Paper 2 (Calculator)", "maxMark": 80, "weight": 0.50 }
+    {
+      "name": "Paper 1 (Non-Calculator)",
+      "maxMark": 80,
+      "weight": 0.5
+    },
+    {
+      "name": "Paper 2 (Calculator)",
+      "maxMark": 80,
+      "weight": 0.5
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 91, "A": 76, "B": 61, "C": 46, "D": 36, "E": 24 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 89, "A": 74, "B": 59, "C": 44, "D": 34, "E": 22 } },
-    { "id": "May2023", "boundaries": { "Astar": 93, "A": 78, "B": 63, "C": 48, "D": 37, "E": 25 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

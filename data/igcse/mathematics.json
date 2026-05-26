@@ -4,12 +4,28 @@
   "syllabusCode": "0580",
   "track": "extended",
   "components": [
-    { "name": "Paper 2 (Short Answer)", "maxMark": 70, "weight": 0.35 },
-    { "name": "Paper 4 (Extended)", "maxMark": 130, "weight": 0.65 }
+    {
+      "name": "Paper 2 (Short Answer)",
+      "maxMark": 70,
+      "weight": 0.35
+    },
+    {
+      "name": "Paper 4 (Extended)",
+      "maxMark": 130,
+      "weight": 0.65
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 88, "A": 73, "B": 58, "C": 44, "D": 34, "E": 23 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 86, "A": 71, "B": 56, "C": 42, "D": 32, "E": 21 } },
-    { "id": "May2023", "boundaries": { "Astar": 90, "A": 75, "B": 60, "C": 45, "D": 35, "E": 24 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

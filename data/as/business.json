@@ -3,12 +3,27 @@
   "board": "CIE",
   "syllabusCode": "9609",
   "components": [
-    { "name": "Paper 1: Short Answer Questions", "maxMark": 40, "weight": 0.40 },
-    { "name": "Paper 2: Data Response", "maxMark": 60, "weight": 0.60 }
+    {
+      "name": "Paper 1: Short Answer Questions",
+      "maxMark": 40,
+      "weight": 0.4
+    },
+    {
+      "name": "Paper 2: Data Response",
+      "maxMark": 60,
+      "weight": 0.6
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "A": 65, "B": 55, "C": 45, "D": 35, "E": 25 } },
-    { "id": "ON2023", "boundaries": { "A": 63, "B": 53, "C": 43, "D": 33, "E": 23 } },
-    { "id": "MJ2023", "boundaries": { "A": 67, "B": 56, "C": 45, "D": 34, "E": 24 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "A": 85,
+        "B": 75,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

@@ -3,14 +3,38 @@
   "board": "CIE",
   "syllabusCode": "9708",
   "components": [
-    { "name": "Paper 1: Multiple Choice (AS)", "maxMark": 30, "weight": 0.15 },
-    { "name": "Paper 2: Data Response & Essays (AS)", "maxMark": 40, "weight": 0.25 },
-    { "name": "Paper 3: Multiple Choice (A Level)", "maxMark": 30, "weight": 0.15 },
-    { "name": "Paper 4: Data Response & Essays (A Level)", "maxMark": 50, "weight": 0.45 }
+    {
+      "name": "Paper 1: Multiple Choice (AS)",
+      "maxMark": 30,
+      "weight": 0.17
+    },
+    {
+      "name": "Paper 2: Data Response & Essays (AS)",
+      "maxMark": 60,
+      "weight": 0.33
+    },
+    {
+      "name": "Paper 3: Multiple Choice (A Level)",
+      "maxMark": 30,
+      "weight": 0.17
+    },
+    {
+      "name": "Paper 4: Data Response & Essays (A Level)",
+      "maxMark": 60,
+      "weight": 0.33
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "Astar": 81, "A": 68, "B": 58, "C": 48, "D": 38, "E": 28 } },
-    { "id": "ON2023", "boundaries": { "Astar": 79, "A": 65, "B": 55, "C": 45, "D": 35, "E": 25 } },
-    { "id": "MJ2023", "boundaries": { "Astar": 83, "A": 70, "B": 59, "C": 48, "D": 37, "E": 27 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

@@ -3,7 +3,7 @@ export type IBGrade = 1 | 2 | 3 | 4 | 5 | 6 | 7
 export type TOKEEGrade = 'A' | 'B' | 'C' | 'D' | 'E'
 export type Track = 'core' | 'extended'
 export type Level = 'HL' | 'SL'
-export type Board = 'igcse' | 'ib' | 'alevel' | 'as'
+export type Board = 'igcse' | 'ib' | 'alevel' | 'as' | 'whatif'
 export type ALevelGrade = 'A*' | 'A' | 'B' | 'C' | 'D' | 'E' | 'U'
 
 export interface ALevelComponent {

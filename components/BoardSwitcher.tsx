@@ -10,6 +10,7 @@ export default function BoardSwitcher({ active, onChange }: Props) {
   return (
     <div className="flex gap-1 p-1 bg-gray-100 rounded-xl">
       {([
+        { key: 'whatif', label: 'What If?' },
         { key: 'igcse', label: 'IGCSE' },
         { key: 'ib', label: 'IB Diploma' },
         { key: 'alevel', label: 'A Level' },
@@ -18,9 +19,11 @@ export default function BoardSwitcher({ active, onChange }: Props) {
         <button
           key={key}
           onClick={() => onChange(key)}
-          className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${
+          className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${
             active === key
-              ? 'bg-[#1a2340] text-white shadow-sm'
+              ? key === 'whatif'
+                ? 'bg-[#7c3aed] text-white shadow-sm'
+                : 'bg-[#1a2340] text-white shadow-sm'
               : 'text-gray-500 hover:text-[#1a2340]'
           }`}
         >

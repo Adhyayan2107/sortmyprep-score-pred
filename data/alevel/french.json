@@ -3,14 +3,38 @@
   "board": "CIE",
   "syllabusCode": "9716",
   "components": [
-    { "name": "Paper 1 (Listening & Reading)", "maxMark": 50, "weight": 0.25 },
-    { "name": "Paper 2 (Reading & Writing)", "maxMark": 60, "weight": 0.25 },
-    { "name": "Paper 3 (Essay)", "maxMark": 60, "weight": 0.25 },
-    { "name": "Speaking Test", "maxMark": 30, "weight": 0.25 }
+    {
+      "name": "Paper 1 (Listening & Reading)",
+      "maxMark": 50,
+      "weight": 0.25
+    },
+    {
+      "name": "Paper 2 (Reading & Writing)",
+      "maxMark": 60,
+      "weight": 0.25
+    },
+    {
+      "name": "Paper 3 (Essay)",
+      "maxMark": 60,
+      "weight": 0.25
+    },
+    {
+      "name": "Speaking Test",
+      "maxMark": 30,
+      "weight": 0.25
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "Astar": 81, "A": 68, "B": 58, "C": 48, "D": 38, "E": 28 } },
-    { "id": "ON2023", "boundaries": { "Astar": 79, "A": 66, "B": 56, "C": 46, "D": 36, "E": 26 } },
-    { "id": "MJ2023", "boundaries": { "Astar": 83, "A": 70, "B": 60, "C": 50, "D": 40, "E": 30 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

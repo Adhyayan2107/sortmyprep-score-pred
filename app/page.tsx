@@ -8,6 +8,7 @@ import IGCSECalculator from '@/components/igcse/IGCSECalculator'
 import ASCalculator from '@/components/as/ASCalculator'
 import IBCalculator from '@/components/ib/IBCalculator'
 import ALevelCalculator from '@/components/alevel/ALevelCalculator'
+import WhatIfCalculator from '@/components/whatif/WhatIfCalculator'
 
 function ShareButton() {
   const [open, setOpen] = useState(false)
@@ -71,7 +72,7 @@ export default function Home() {
 
   useEffect(() => {
     const b = new URLSearchParams(window.location.search).get('board')
-    if (b === 'ib' || b === 'igcse' || b === 'as' || b === 'alevel') setBoard(b as Board)
+    if (b === 'ib' || b === 'igcse' || b === 'as' || b === 'alevel' || b === 'whatif') setBoard(b as Board)
   }, [])
 
   const handleBoardChange = (b: Board) => {
@@ -80,6 +81,8 @@ export default function Home() {
     url.searchParams.set('board', b)
     window.history.pushState({}, '', url.toString())
   }
+
+  const isWhatIf = board === 'whatif'
 
   return (
     <div className="min-h-screen">
@@ -107,13 +110,27 @@ export default function Home() {
           <span className="w-1.5 h-1.5 rounded-full bg-[#2d7dd2] animate-pulse" />
           Level up your prep at sortmyprep.com
         </a>
-        <h1 className="text-3xl sm:text-4xl font-black text-[#1a2340] tracking-tight leading-tight">
-          Know your grade<br />
-          <span className="text-[#2d7dd2]">before results day.</span>
-        </h1>
-        <p className="text-[#64748b] mt-3 text-sm sm:text-base max-w-sm mx-auto leading-relaxed">
-          Enter your marks and see your predicted grade instantly.
-        </p>
+        {isWhatIf ? (
+          <>
+            <h1 className="text-3xl sm:text-4xl font-black text-[#1a2340] tracking-tight leading-tight">
+              What if you got<br />
+              <span className="text-[#7c3aed]">different marks?</span>
+            </h1>
+            <p className="text-[#64748b] mt-3 text-sm sm:text-base max-w-sm mx-auto leading-relaxed">
+              Slide through every possible outcome. See every grade combination — post-exam anxiety, sorted.
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className="text-3xl sm:text-4xl font-black text-[#1a2340] tracking-tight leading-tight">
+              Know your grade<br />
+              <span className="text-[#2d7dd2]">before results day.</span>
+            </h1>
+            <p className="text-[#64748b] mt-3 text-sm sm:text-base max-w-sm mx-auto leading-relaxed">
+              Enter your marks and see your predicted grade instantly.
+            </p>
+          </>
+        )}
       </section>
 
       {/* Calculator */}
@@ -122,6 +139,7 @@ export default function Home() {
         {board === 'ib' && <IBCalculator />}
         {board === 'alevel' && <ALevelCalculator />}
         {board === 'as' && <ASCalculator />}
+        {board === 'whatif' && <WhatIfCalculator />}
       </main>
 
       <footer className="text-center py-8 text-xs text-[#94a3b8] border-t border-gray-200">

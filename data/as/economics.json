@@ -3,12 +3,27 @@
   "board": "CIE",
   "syllabusCode": "9708",
   "components": [
-    { "name": "Paper 1: Multiple Choice", "maxMark": 30, "weight": 0.40 },
-    { "name": "Paper 2: Data Response & Essays", "maxMark": 40, "weight": 0.60 }
+    {
+      "name": "Paper 1: Multiple Choice",
+      "maxMark": 30,
+      "weight": 0.33
+    },
+    {
+      "name": "Paper 2: Data Response & Essays",
+      "maxMark": 60,
+      "weight": 0.67
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "A": 66, "B": 56, "C": 46, "D": 36, "E": 26 } },
-    { "id": "ON2023", "boundaries": { "A": 64, "B": 54, "C": 44, "D": 34, "E": 24 } },
-    { "id": "MJ2023", "boundaries": { "A": 68, "B": 57, "C": 46, "D": 35, "E": 25 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "A": 85,
+        "B": 75,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

@@ -4,12 +4,28 @@
   "syllabusCode": "0475",
   "track": "extended",
   "components": [
-    { "name": "Paper 1 (Set Texts — Poetry & Prose)", "maxMark": 80, "weight": 0.50 },
-    { "name": "Paper 3 (Set Texts — Drama & Poetry)", "maxMark": 80, "weight": 0.50 }
+    {
+      "name": "Paper 1 (Set Texts \u2014 Poetry & Prose)",
+      "maxMark": 80,
+      "weight": 0.5
+    },
+    {
+      "name": "Paper 3 (Set Texts \u2014 Drama & Poetry)",
+      "maxMark": 80,
+      "weight": 0.5
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 85, "A": 70, "B": 57, "C": 44, "D": 33, "E": 22 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 83, "A": 68, "B": 55, "C": 42, "D": 31, "E": 20 } },
-    { "id": "May2023", "boundaries": { "Astar": 87, "A": 72, "B": 59, "C": 46, "D": 35, "E": 23 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

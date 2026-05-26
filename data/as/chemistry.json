@@ -3,13 +3,32 @@
   "board": "CIE",
   "syllabusCode": "9701",
   "components": [
-    { "name": "Paper 1: Multiple Choice", "maxMark": 40, "weight": 0.30 },
-    { "name": "Paper 2: AS Level Structured Questions", "maxMark": 60, "weight": 0.45 },
-    { "name": "Paper 3: Advanced Practical Skills", "maxMark": 40, "weight": 0.25 }
+    {
+      "name": "Paper 1: Multiple Choice",
+      "maxMark": 40,
+      "weight": 0.31
+    },
+    {
+      "name": "Paper 2: AS Level Structured Questions",
+      "maxMark": 60,
+      "weight": 0.46
+    },
+    {
+      "name": "Paper 3: Advanced Practical Skills",
+      "maxMark": 40,
+      "weight": 0.23
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "A": 68, "B": 58, "C": 48, "D": 38, "E": 28 } },
-    { "id": "ON2023", "boundaries": { "A": 66, "B": 56, "C": 46, "D": 36, "E": 26 } },
-    { "id": "MJ2023", "boundaries": { "A": 70, "B": 59, "C": 48, "D": 37, "E": 27 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "A": 85,
+        "B": 75,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

@@ -4,13 +4,33 @@
   "syllabusCode": "0520",
   "track": "extended",
   "components": [
-    { "name": "Paper 2 (Listening — Extended)", "maxMark": 45, "weight": 0.30 },
-    { "name": "Paper 3 (Speaking)", "maxMark": 60, "weight": 0.30 },
-    { "name": "Paper 4 (Reading & Writing — Extended)", "maxMark": 80, "weight": 0.40 }
+    {
+      "name": "Paper 2 (Listening \u2014 Extended)",
+      "maxMark": 45,
+      "weight": 0.3
+    },
+    {
+      "name": "Paper 3 (Speaking)",
+      "maxMark": 60,
+      "weight": 0.3
+    },
+    {
+      "name": "Paper 4 (Reading & Writing \u2014 Extended)",
+      "maxMark": 80,
+      "weight": 0.4
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 82, "A": 68, "B": 55, "C": 42, "D": 31, "E": 20 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 80, "A": 66, "B": 53, "C": 40, "D": 29, "E": 18 } },
-    { "id": "May2023", "boundaries": { "Astar": 84, "A": 70, "B": 57, "C": 44, "D": 33, "E": 22 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

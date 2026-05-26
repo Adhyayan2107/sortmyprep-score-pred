@@ -4,13 +4,35 @@
   "syllabusCode": "0460",
   "track": "core",
   "components": [
-    { "name": "Paper 1 (Geographical Themes)", "maxMark": 75, "weight": 0.45 },
-    { "name": "Paper 2 (Geographical Skills)", "maxMark": 60, "weight": 0.27 },
-    { "name": "Paper 4 (Alternative to Coursework)", "maxMark": 60, "weight": 0.28 }
+    {
+      "name": "Paper 1 (Geographical Themes)",
+      "maxMark": 75,
+      "weight": 0.45
+    },
+    {
+      "name": "Paper 2 (Geographical Skills)",
+      "maxMark": 60,
+      "weight": 0.27
+    },
+    {
+      "name": "Paper 4 (Alternative to Coursework)",
+      "maxMark": 60,
+      "weight": 0.28
+    }
   ],
   "sessions": [
-    { "id": "May2024", "boundaries": { "Astar": 78, "A": 64, "B": 50, "C": 37, "D": 27, "E": 17, "F": 10, "G": 4 } },
-    { "id": "Nov2023", "boundaries": { "Astar": 76, "A": 62, "B": 48, "C": 35, "D": 25, "E": 15, "F": 9, "G": 3 } },
-    { "id": "May2023", "boundaries": { "Astar": 80, "A": 66, "B": 51, "C": 38, "D": 28, "E": 18, "F": 11, "G": 5 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35,
+        "F": 25,
+        "G": 15
+      }
+    }
   ]
 }

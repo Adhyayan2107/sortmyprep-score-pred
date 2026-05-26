@@ -3,12 +3,27 @@
   "board": "CIE",
   "syllabusCode": "9231",
   "components": [
-    { "name": "Paper 1 (Further Pure Mathematics 1)", "maxMark": 75, "weight": 0.60 },
-    { "name": "Paper 2 (Further Statistics / Mechanics)", "maxMark": 50, "weight": 0.40 }
+    {
+      "name": "Paper 1 (Further Pure Mathematics 1)",
+      "maxMark": 75,
+      "weight": 0.6
+    },
+    {
+      "name": "Paper 3 (Further Statistics / Mechanics)",
+      "maxMark": 50,
+      "weight": 0.4
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "A": 73, "B": 63, "C": 53, "D": 43, "E": 33 } },
-    { "id": "ON2023", "boundaries": { "A": 71, "B": 61, "C": 51, "D": 41, "E": 31 } },
-    { "id": "MJ2023", "boundaries": { "A": 75, "B": 65, "C": 55, "D": 45, "E": 35 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "A": 85,
+        "B": 75,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }

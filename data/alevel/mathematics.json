@@ -3,13 +3,38 @@
   "board": "CIE",
   "syllabusCode": "9709",
   "components": [
-    { "name": "Paper 1: Pure Mathematics 1", "maxMark": 75, "weight": 0.33 },
-    { "name": "Paper 3: Pure Mathematics 3", "maxMark": 75, "weight": 0.34 },
-    { "name": "Paper 5: Probability & Statistics 1", "maxMark": 50, "weight": 0.33 }
+    {
+      "name": "Paper 1: Pure Mathematics 1",
+      "maxMark": 75,
+      "weight": 0.3
+    },
+    {
+      "name": "Paper 3: Pure Mathematics 3",
+      "maxMark": 75,
+      "weight": 0.3
+    },
+    {
+      "name": "Paper 4: Mechanics",
+      "maxMark": 50,
+      "weight": 0.2
+    },
+    {
+      "name": "Paper 5: Probability & Statistics 1",
+      "maxMark": 50,
+      "weight": 0.2
+    }
   ],
   "sessions": [
-    { "id": "MJ2024", "boundaries": { "Astar": 86, "A": 73, "B": 63, "C": 53, "D": 43, "E": 33 } },
-    { "id": "ON2023", "boundaries": { "Astar": 84, "A": 71, "B": 61, "C": 51, "D": 41, "E": 31 } },
-    { "id": "MJ2023", "boundaries": { "Astar": 88, "A": 75, "B": 64, "C": 53, "D": 43, "E": 33 } }
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
   ]
 }
