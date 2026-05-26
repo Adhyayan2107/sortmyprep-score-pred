@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import type { IBSubjectData, IBGrade, Level } from '@/lib/types'
 import { calculateIBGrade, calculateIBRequiredMarks } from '@/lib/ib-calc'
 
-type InputMode = 'detailed' | 'quick' | 'reverse'
+type TabMode = 'marks' | 'reverse'
+type MarksMode = 'from-marks' | 'have-grade'
 
 interface Props {
   subject: IBSubjectData
@@ -26,39 +27,42 @@ const GRADE_COLORS: Record<IBGrade, { bg: string; text: string; border: string }
 }
 
 export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove, onGradeChange }: Props) {
-  const [inputMode, setInputMode] = useState<InputMode>('detailed')
+  const [tab, setTab] = useState<TabMode>('marks')
+  const [marksMode, setMarksMode] = useState<MarksMode>('from-marks')
   const [quickGrade, setQuickGrade] = useState<IBGrade | null>(null)
   const [iaMark, setIaMark] = useState<number | null>(null)
   const [paperMarks, setPaperMarks] = useState<(number | null)[]>(new Array(subject.papers.length).fill(null))
   const [targetGrade, setTargetGrade] = useState<IBGrade>(6)
 
-  const detailedResult = (iaMark !== null || paperMarks.some(m => m !== null))
+  const iaError = iaMark !== null && (iaMark < 0 || iaMark > subject.ia.maxMark)
+  const paperErrors = paperMarks.map((m, i) => m !== null && (m < 0 || m > subject.papers[i].maxMark))
+  const hasAnyError = iaError || paperErrors.some(Boolean)
+
+  const detailedResult = !hasAnyError && (iaMark !== null || paperMarks.some(m => m !== null))
     ? calculateIBGrade(subject.ia, subject.papers, iaMark, paperMarks, subject.sessions)
     : null
 
-  const displayGrade: IBGrade | null = inputMode === 'quick'
-    ? quickGrade
-    : detailedResult?.likelyGrade ?? null
+  const displayGrade: IBGrade | null =
+    marksMode === 'have-grade' ? quickGrade : detailedResult?.likelyGrade ?? null
 
   useEffect(() => {
     if (displayGrade) onGradeChange(displayGrade)
   }, [displayGrade])
 
-  const reverseResults = inputMode === 'reverse'
+  const reverseResults = tab === 'reverse'
     ? calculateIBRequiredMarks(subject.ia, subject.papers, iaMark, paperMarks, targetGrade, subject.sessions)
     : []
 
   const colors = displayGrade ? GRADE_COLORS[displayGrade] : null
 
-  const MODES: { key: InputMode; label: string }[] = [
-    { key: 'detailed', label: 'From marks' },
-    { key: 'quick', label: 'Quick grade' },
+  const TABS: { key: TabMode; label: string }[] = [
+    { key: 'marks', label: 'From marks' },
     { key: 'reverse', label: 'What do I need?' },
   ]
 
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-100 shadow-sm overflow-hidden mb-3">
-      {/* Header row — always visible */}
+      {/* Header row */}
       <div
         className="flex items-center gap-3 px-5 py-4 cursor-pointer hover:bg-gray-50 transition-colors select-none"
         onClick={onToggle}
@@ -67,12 +71,8 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
           <div className="flex items-center gap-2 flex-wrap">
             <p className="text-sm font-bold text-[#1a2340] truncate">{subject.subject}</p>
             <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-              level === 'HL'
-                ? 'bg-[#1a2340] text-white'
-                : 'bg-gray-200 text-gray-700'
-            }`}>
-              {level}
-            </span>
+              level === 'HL' ? 'bg-[#1a2340] text-white' : 'bg-gray-200 text-gray-700'
+            }`}>{level}</span>
           </div>
         </div>
 
@@ -89,149 +89,232 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
               <span className="text-sm text-[#94a3b8] font-bold">?</span>
             </div>
           )}
-
-          <span className="text-[#94a3b8] text-xs font-medium w-4 text-center">
-            {isOpen ? '▲' : '▼'}
-          </span>
-
+          <span className="text-[#94a3b8] text-xs font-medium w-4 text-center">{isOpen ? '▲' : '▼'}</span>
           <button
             onClick={e => { e.stopPropagation(); onRemove() }}
             className="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 text-red-400 hover:text-red-600 transition-colors flex items-center justify-center font-bold text-base leading-none"
-          >
-            ×
-          </button>
+          >×</button>
         </div>
       </div>
 
-      {/* Expanded panel */}
       {isOpen && (
         <div className="border-t-2 border-gray-100 px-5 pb-5 pt-4">
-          {/* Mode tabs */}
+          {/* Main tabs */}
           <div className="flex gap-1 mb-4 p-1 bg-gray-100 rounded-xl">
-            {MODES.map(m => (
+            {TABS.map(t => (
               <button
-                key={m.key}
-                onClick={() => setInputMode(m.key)}
+                key={t.key}
+                onClick={() => setTab(t.key)}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
-                  inputMode === m.key
-                    ? m.key === 'reverse'
+                  tab === t.key
+                    ? t.key === 'reverse'
                       ? 'bg-[#2d7dd2] text-white shadow-sm'
                       : 'bg-white text-[#1a2340] shadow-sm'
                     : 'text-[#94a3b8] hover:text-[#374151]'
                 }`}
               >
-                {m.label}
+                {t.label}
               </button>
             ))}
           </div>
 
-          {/* FROM MARKS / REVERSE shared inputs */}
-          {(inputMode === 'detailed' || inputMode === 'reverse') && (
-            <div className="space-y-2 mb-3">
-              {/* IA */}
-              <div className="flex items-center justify-between rounded-xl border-2 border-gray-200 hover:border-[#2d7dd2]/40 px-4 py-3 transition-colors">
-                <div>
-                  <p className="text-xs font-bold text-[#374151]">Internal Assessment (IA)</p>
-                  <p className="text-xs text-[#94a3b8]">Weight: {Math.round(subject.ia.weight * 100)}%</p>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <input
-                    type="number"
-                    min={0}
-                    max={subject.ia.maxMark}
-                    value={iaMark ?? ''}
-                    onChange={e => setIaMark(e.target.value === '' ? null : Number(e.target.value))}
-                    placeholder="—"
-                    className="w-16 text-center rounded-lg border-2 border-gray-200 focus:border-[#2d7dd2] px-2 py-2 text-sm font-black focus:outline-none text-[#1a2340] bg-white transition-colors"
-                  />
-                  <span className="text-xs text-[#94a3b8] font-medium">/{subject.ia.maxMark}</span>
+          {/* FROM MARKS tab */}
+          {tab === 'marks' && (
+            <>
+              {/* Marks mode toggle */}
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">Entry method</p>
+                <div className="flex gap-1 p-0.5 bg-gray-100 rounded-lg">
+                  <button
+                    onClick={() => setMarksMode('from-marks')}
+                    className={`px-3 py-1 rounded-md text-xs font-bold transition-colors ${
+                      marksMode === 'from-marks' ? 'bg-white text-[#1a2340] shadow-sm' : 'text-[#94a3b8]'
+                    }`}
+                  >
+                    Enter marks
+                  </button>
+                  <button
+                    onClick={() => setMarksMode('have-grade')}
+                    className={`px-3 py-1 rounded-md text-xs font-bold transition-colors ${
+                      marksMode === 'have-grade' ? 'bg-white text-[#1a2340] shadow-sm' : 'text-[#94a3b8]'
+                    }`}
+                  >
+                    I have my grade
+                  </button>
                 </div>
               </div>
 
-              {/* Papers */}
-              {subject.papers.map((paper, i) => (
-                <div key={i} className="flex items-center justify-between rounded-xl border-2 border-gray-200 hover:border-[#2d7dd2]/40 px-4 py-3 transition-colors">
+              {/* Enter marks */}
+              {marksMode === 'from-marks' && (
+                <div className="space-y-2 mb-3">
+                  {/* IA */}
                   <div>
-                    <p className="text-xs font-bold text-[#374151]">{paper.name}</p>
-                    <p className="text-xs text-[#94a3b8]">Weight: {Math.round(paper.weight * 100)}%</p>
+                    <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
+                      iaError ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-[#2d7dd2]/40'
+                    }`}>
+                      <div>
+                        <p className="text-xs font-bold text-[#374151]">Internal Assessment (IA)</p>
+                        <p className="text-xs text-[#94a3b8]">Weight: {Math.round(subject.ia.weight * 100)}%</p>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="number" min={0} max={subject.ia.maxMark}
+                          value={iaMark ?? ''}
+                          onChange={e => setIaMark(e.target.value === '' ? null : Number(e.target.value))}
+                          placeholder="—"
+                          className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-sm font-black focus:outline-none transition-colors ${
+                            iaError ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 focus:border-[#2d7dd2] text-[#1a2340] bg-white'
+                          }`}
+                        />
+                        <span className="text-xs text-[#94a3b8] font-medium">/{subject.ia.maxMark}</span>
+                      </div>
+                    </div>
+                    {iaError && <p className="text-xs text-red-500 font-semibold mt-1 ml-1">Max mark is {subject.ia.maxMark}</p>}
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <input
-                      type="number"
-                      min={0}
-                      max={paper.maxMark}
-                      value={paperMarks[i] ?? ''}
-                      onChange={e => {
-                        const val = e.target.value === '' ? null : Number(e.target.value)
-                        setPaperMarks(prev => { const next = [...prev]; next[i] = val; return next })
-                      }}
-                      placeholder="—"
-                      className="w-16 text-center rounded-lg border-2 border-gray-200 focus:border-[#2d7dd2] px-2 py-2 text-sm font-black focus:outline-none text-[#1a2340] bg-white transition-colors"
-                    />
-                    <span className="text-xs text-[#94a3b8] font-medium">/{paper.maxMark}</span>
+
+                  {/* Papers */}
+                  {subject.papers.map((paper, i) => (
+                    <div key={i}>
+                      <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
+                        paperErrors[i] ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-[#2d7dd2]/40'
+                      }`}>
+                        <div>
+                          <p className="text-xs font-bold text-[#374151]">{paper.name}</p>
+                          <p className="text-xs text-[#94a3b8]">Weight: {Math.round(paper.weight * 100)}%</p>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="number" min={0} max={paper.maxMark}
+                            value={paperMarks[i] ?? ''}
+                            onChange={e => {
+                              const val = e.target.value === '' ? null : Number(e.target.value)
+                              setPaperMarks(prev => { const next = [...prev]; next[i] = val; return next })
+                            }}
+                            placeholder="—"
+                            className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-sm font-black focus:outline-none transition-colors ${
+                              paperErrors[i] ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 focus:border-[#2d7dd2] text-[#1a2340] bg-white'
+                            }`}
+                          />
+                          <span className="text-xs text-[#94a3b8] font-medium">/{paper.maxMark}</span>
+                        </div>
+                      </div>
+                      {paperErrors[i] && <p className="text-xs text-red-500 font-semibold mt-1 ml-1">Max mark is {paper.maxMark}</p>}
+                    </div>
+                  ))}
+
+                  {/* Result */}
+                  {detailedResult && (
+                    <div
+                      className="rounded-xl px-4 py-3 flex items-center justify-between border-2 mt-1"
+                      style={{ backgroundColor: GRADE_COLORS[detailedResult.likelyGrade].bg, borderColor: GRADE_COLORS[detailedResult.likelyGrade].border }}
+                    >
+                      <div>
+                        <p className="text-xs text-[#94a3b8]">
+                          Range: <span className="font-bold text-[#374151]">{detailedResult.conservativeGrade}</span>
+                          {' – '}
+                          <span className="font-bold text-[#374151]">{detailedResult.optimisticGrade}</span>
+                        </p>
+                        <p className="text-xs text-[#94a3b8] mt-0.5">
+                          Score: <span className="font-bold text-[#374151]">{detailedResult.combinedScore.toFixed(0)}</span>/100
+                        </p>
+                      </div>
+                      <div style={{ color: GRADE_COLORS[detailedResult.likelyGrade].text }}>
+                        <span className="text-3xl font-black">{detailedResult.likelyGrade}</span>
+                        <span className="text-xs block text-center font-semibold opacity-70">likely</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* I have my grade */}
+              {marksMode === 'have-grade' && (
+                <div>
+                  <p className="text-xs text-[#94a3b8] mb-3">Tap your predicted or received grade</p>
+                  <div className="flex gap-1.5">
+                    {([7, 6, 5, 4, 3, 2, 1] as IBGrade[]).map(g => {
+                      const c = GRADE_COLORS[g]
+                      const isSelected = quickGrade === g
+                      return (
+                        <button
+                          key={g}
+                          onClick={() => setQuickGrade(isSelected ? null : g)}
+                          className={`flex-1 py-3 rounded-xl text-sm font-black border-2 transition-all ${
+                            isSelected ? 'shadow-md scale-105' : 'border-gray-200 text-gray-400 hover:border-gray-300 bg-white'
+                          }`}
+                          style={isSelected ? { backgroundColor: c.bg, color: c.text, borderColor: c.border } : {}}
+                        >
+                          {g}
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
 
-          {/* DETAILED result */}
-          {inputMode === 'detailed' && detailedResult && (
-            <div
-              className="rounded-xl px-4 py-3 flex items-center justify-between border-2"
-              style={{
-                backgroundColor: GRADE_COLORS[detailedResult.likelyGrade].bg,
-                borderColor: GRADE_COLORS[detailedResult.likelyGrade].border,
-              }}
-            >
-              <div>
-                <p className="text-xs text-[#94a3b8]">
-                  Range:{' '}
-                  <span className="font-bold text-[#374151]">{detailedResult.conservativeGrade}</span>
-                  {' – '}
-                  <span className="font-bold text-[#374151]">{detailedResult.optimisticGrade}</span>
-                </p>
-                <p className="text-xs text-[#94a3b8] mt-0.5">
-                  Score: <span className="font-bold text-[#374151]">{detailedResult.combinedScore.toFixed(0)}</span>/100
-                </p>
-              </div>
-              <div style={{ color: GRADE_COLORS[detailedResult.likelyGrade].text }}>
-                <span className="text-3xl font-black">{detailedResult.likelyGrade}</span>
-                <span className="text-xs block text-center font-semibold opacity-70">likely</span>
-              </div>
-            </div>
-          )}
-
-          {/* QUICK GRADE */}
-          {inputMode === 'quick' && (
+          {/* REVERSE MODE tab */}
+          {tab === 'reverse' && (
             <div>
-              <p className="text-xs text-[#94a3b8] mb-3">Tap your predicted or received grade</p>
-              <div className="flex gap-1.5">
-                {([7, 6, 5, 4, 3, 2, 1] as IBGrade[]).map(g => {
-                  const c = GRADE_COLORS[g]
-                  const isSelected = quickGrade === g
-                  return (
-                    <button
-                      key={g}
-                      onClick={() => setQuickGrade(isSelected ? null : g)}
-                      className={`flex-1 py-3 rounded-xl text-sm font-black border-2 transition-all ${
-                        isSelected ? 'shadow-md scale-105' : 'border-gray-200 text-gray-400 hover:border-gray-300 bg-white'
-                      }`}
-                      style={isSelected ? { backgroundColor: c.bg, color: c.text, borderColor: c.border } : {}}
-                    >
-                      {g}
-                    </button>
-                  )
-                })}
+              {/* Shared inputs for reverse (same mark fields) */}
+              <div className="space-y-2 mb-4">
+                <div>
+                  <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
+                    iaError ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-[#2d7dd2]/40'
+                  }`}>
+                    <div>
+                      <p className="text-xs font-bold text-[#374151]">IA (if already done)</p>
+                      <p className="text-xs text-[#94a3b8]">Leave blank if not submitted</p>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <input
+                        type="number" min={0} max={subject.ia.maxMark}
+                        value={iaMark ?? ''}
+                        onChange={e => setIaMark(e.target.value === '' ? null : Number(e.target.value))}
+                        placeholder="—"
+                        className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-sm font-black focus:outline-none transition-colors ${
+                          iaError ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 focus:border-[#2d7dd2] text-[#1a2340] bg-white'
+                        }`}
+                      />
+                      <span className="text-xs text-[#94a3b8] font-medium">/{subject.ia.maxMark}</span>
+                    </div>
+                  </div>
+                  {iaError && <p className="text-xs text-red-500 font-semibold mt-1 ml-1">Max mark is {subject.ia.maxMark}</p>}
+                </div>
+                {subject.papers.map((paper, i) => (
+                  <div key={i}>
+                    <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
+                      paperErrors[i] ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-[#2d7dd2]/40'
+                    }`}>
+                      <div>
+                        <p className="text-xs font-bold text-[#374151]">{paper.name}</p>
+                        <p className="text-xs text-[#94a3b8]">Leave blank if not yet taken</p>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="number" min={0} max={paper.maxMark}
+                          value={paperMarks[i] ?? ''}
+                          onChange={e => {
+                            const val = e.target.value === '' ? null : Number(e.target.value)
+                            setPaperMarks(prev => { const next = [...prev]; next[i] = val; return next })
+                          }}
+                          placeholder="—"
+                          className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-sm font-black focus:outline-none transition-colors ${
+                            paperErrors[i] ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 focus:border-[#2d7dd2] text-[#1a2340] bg-white'
+                          }`}
+                        />
+                        <span className="text-xs text-[#94a3b8] font-medium">/{paper.maxMark}</span>
+                      </div>
+                    </div>
+                    {paperErrors[i] && <p className="text-xs text-red-500 font-semibold mt-1 ml-1">Max mark is {paper.maxMark}</p>}
+                  </div>
+                ))}
               </div>
-            </div>
-          )}
 
-          {/* REVERSE MODE */}
-          {inputMode === 'reverse' && (
-            <div>
+              {/* Target grade */}
               <div className="flex items-center gap-3 mb-3">
-                <p className="text-xs font-bold text-[#374151] shrink-0">Target grade:</p>
+                <p className="text-xs font-bold text-[#374151] shrink-0">Target:</p>
                 <div className="flex gap-1 flex-1">
                   {([7, 6, 5, 4, 3] as IBGrade[]).map(g => {
                     const c = GRADE_COLORS[g]
@@ -261,9 +344,7 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
                     <div
                       key={r.index}
                       className={`rounded-xl border-2 px-4 py-3 flex items-center justify-between ${
-                        r.achievable
-                          ? 'bg-[#eff6ff] border-[#bfdbfe]'
-                          : 'bg-[#fef2f2] border-[#fecaca]'
+                        r.achievable ? 'bg-[#eff6ff] border-[#bfdbfe]' : 'bg-[#fef2f2] border-[#fecaca]'
                       }`}
                     >
                       <div>
@@ -288,7 +369,7 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
               )}
 
               <p className="text-xs text-[#94a3b8] mt-3">
-                Based on median boundaries · Papers with a mark entered are treated as done; empty ones show what you need
+                Entered marks are treated as done · blank papers show what you need
               </p>
             </div>
           )}

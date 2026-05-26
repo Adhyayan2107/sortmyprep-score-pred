@@ -45,18 +45,6 @@ export default function IGCSECalculator() {
 
       {subject && (
         <>
-          {/* Subject meta */}
-          <div className="flex flex-wrap gap-2 mb-4 px-1">
-            {[subject.syllabusCode, subject.board, subject.track + ' track'].map(tag => (
-              <span
-                key={tag}
-                className="text-xs font-semibold text-[#64748b] bg-white border border-gray-200 px-2.5 py-1 rounded-full capitalize"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
           {/* Mode switcher */}
           <div className="flex gap-1 mb-4 p-1 bg-white rounded-xl border border-gray-200 shadow-sm">
             {([

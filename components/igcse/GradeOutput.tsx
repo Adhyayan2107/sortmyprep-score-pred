@@ -54,11 +54,6 @@ export default function GradeOutput({ result, isPartial }: Props) {
           </div>
         )}
 
-        {sameRange && (
-          <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 text-sm font-semibold text-white">
-            Consistent across all recent sessions
-          </div>
-        )}
       </div>
     </div>
   )

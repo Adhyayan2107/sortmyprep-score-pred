@@ -4,16 +4,16 @@ import type { IGCSESubjectData } from '@/lib/types'
 import CustomSelect from '@/components/shared/CustomSelect'
 
 const SUBJECTS = [
-  { label: 'Mathematics', file: 'mathematics' },
-  { label: 'Physics', file: 'physics' },
-  { label: 'Chemistry', file: 'chemistry' },
-  { label: 'Biology', file: 'biology' },
-  { label: 'English Language', file: 'english-language' },
-  { label: 'Economics', file: 'economics' },
-  { label: 'Business Studies', file: 'business' },
-  { label: 'Computer Science', file: 'computer-science' },
-  { label: 'History', file: 'history' },
-  { label: 'Geography', file: 'geography' },
+  { label: '0580 · Mathematics (CIE)', file: 'mathematics' },
+  { label: '0625 · Physics (CIE)', file: 'physics' },
+  { label: '0620 · Chemistry (CIE)', file: 'chemistry' },
+  { label: '0610 · Biology (CIE)', file: 'biology' },
+  { label: '0500 · English Language (CIE)', file: 'english-language' },
+  { label: '0455 · Economics (CIE)', file: 'economics' },
+  { label: '0450 · Business Studies (CIE)', file: 'business' },
+  { label: '0478 · Computer Science (CIE)', file: 'computer-science' },
+  { label: '0470 · History (CIE)', file: 'history' },
+  { label: '0460 · Geography (CIE)', file: 'geography' },
 ]
 
 const OPTIONS = SUBJECTS.map(s => ({ value: s.file, label: s.label }))

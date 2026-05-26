@@ -38,7 +38,7 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
     for (const level of s.levels) {
       const alreadyAdded = selected.some(sel => sel.file === s.file && sel.level === level)
       if (!alreadyAdded) {
-        const wouldExceedHL = level === 'HL' && hlCount >= 3
+        const wouldExceedHL = level === 'HL' && hlCount >= 4
         availableOptions.push({
           value: `${s.file}|${level}`,
           label: `${s.label} ${level}`,
@@ -49,7 +49,7 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
     }
   }
 
-  const canAdd = !!chosen && !adding && selected.length < 6 && !(chosen.endsWith('|HL') && hlCount >= 3)
+  const canAdd = !!chosen && !adding && selected.length < 6 && !(chosen.endsWith('|HL') && hlCount >= 4)
 
   const handleAdd = async () => {
     if (!canAdd) return
@@ -72,9 +72,9 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
             {selected.length}/6 subjects
           </span>
           <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-            hlCount >= 3 ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'
+            hlCount >= 4 ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'
           }`}>
-            {hlCount}/3 HL
+            {hlCount}/4 HL
           </span>
         </div>
       </div>
@@ -102,9 +102,9 @@ export default function SubjectBuilder({ selected, onAdd, onRemove }: Props) {
         </div>
       )}
 
-      {hlCount >= 3 && chosen.endsWith('|HL') && (
+      {hlCount >= 4 && chosen.endsWith('|HL') && (
         <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl mt-3">
-          Max 3 HL subjects — select SL instead
+          Max 4 HL subjects — select SL instead
         </p>
       )}
 
