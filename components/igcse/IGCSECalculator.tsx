@@ -71,7 +71,7 @@ export default function IGCSECalculator() {
             ] as { key: Mode; label: string }[]).map(({ key, label }) => (
               <button
                 key={key}
-                onClick={() => setMode(key)}
+                onClick={() => { setMode(key); setMarks(new Array(subject.components.length).fill(null)) }}
                 className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${
                   mode === key
                     ? key === 'reverse'
@@ -154,15 +154,6 @@ export default function IGCSECalculator() {
                 </div>
               </div>
 
-              {/* Already scored inputs */}
-              <ComponentInputs
-                components={subject.components}
-                marks={marks}
-                onChange={handleMarkChange}
-                label="Already scored"
-                note="Leave blank for papers not yet taken"
-              />
-
               {/* Required marks results */}
               <ReverseMode
                 components={subject.components}
@@ -170,6 +161,17 @@ export default function IGCSECalculator() {
                 sessions={subject.sessions}
                 targetGrade={targetGrade}
               />
+
+              {/* Already scored inputs */}
+              <div className="mt-4">
+                <ComponentInputs
+                  components={subject.components}
+                  marks={marks}
+                  onChange={handleMarkChange}
+                  label="Already scored"
+                  note="Leave blank for papers not yet taken"
+                />
+              </div>
             </>
           )}
         </>

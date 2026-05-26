@@ -5,14 +5,35 @@ import type { IBSubjectData, Level } from '@/lib/types'
 import CustomSelect from '@/components/shared/CustomSelect'
 
 const IB_SUBJECTS: { label: string; file: string; levels: Level[] }[] = [
+  // Group 1 – Language & Literature
+  { label: 'English A: Lang & Lit', file: 'english-a', levels: ['HL', 'SL'] },
+  // Group 2 – Language Acquisition
+  { label: 'English B', file: 'english-b', levels: ['HL', 'SL'] },
+  { label: 'French B', file: 'french-b', levels: ['HL', 'SL'] },
+  { label: 'Spanish B', file: 'spanish-b', levels: ['HL', 'SL'] },
+  { label: 'Mandarin B', file: 'mandarin-b', levels: ['HL', 'SL'] },
+  { label: 'German B', file: 'german-b', levels: ['HL', 'SL'] },
+  // Group 3 – Individuals & Societies
+  { label: 'Business Management', file: 'business-management', levels: ['HL', 'SL'] },
+  { label: 'Economics', file: 'economics', levels: ['HL', 'SL'] },
+  { label: 'Geography', file: 'geography', levels: ['HL', 'SL'] },
+  { label: 'Global Politics', file: 'global-politics', levels: ['HL', 'SL'] },
+  { label: 'History', file: 'history', levels: ['HL', 'SL'] },
+  { label: 'Psychology', file: 'psychology', levels: ['HL', 'SL'] },
+  // Group 4 – Sciences
+  { label: 'Biology', file: 'biology', levels: ['HL', 'SL'] },
+  { label: 'Chemistry', file: 'chemistry', levels: ['HL', 'SL'] },
+  { label: 'Computer Science', file: 'computer-science', levels: ['HL', 'SL'] },
+  { label: 'Environmental Systems & Societies', file: 'ess', levels: ['SL'] },
+  { label: 'Physics', file: 'physics', levels: ['HL', 'SL'] },
+  // Group 5 – Mathematics
   { label: 'Maths AA', file: 'maths-aa', levels: ['HL', 'SL'] },
   { label: 'Maths AI', file: 'maths-ai', levels: ['HL', 'SL'] },
-  { label: 'Physics', file: 'physics', levels: ['HL', 'SL'] },
-  { label: 'Chemistry', file: 'chemistry', levels: ['HL', 'SL'] },
-  { label: 'Biology', file: 'biology', levels: ['HL', 'SL'] },
-  { label: 'Economics', file: 'economics', levels: ['HL', 'SL'] },
-  { label: 'History', file: 'history', levels: ['HL', 'SL'] },
-  { label: 'English A', file: 'english-a', levels: ['HL'] },
+  // Group 6 – The Arts
+  { label: 'Film', file: 'film', levels: ['HL', 'SL'] },
+  { label: 'Music', file: 'music', levels: ['HL', 'SL'] },
+  { label: 'Theatre', file: 'theatre', levels: ['HL', 'SL'] },
+  { label: 'Visual Arts', file: 'visual-arts', levels: ['HL', 'SL'] },
 ]
 
 export interface SelectedSubject {

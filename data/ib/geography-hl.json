@@ -1,0 +1,17 @@
+{
+  "subject": "Geography",
+  "code": "Geography",
+  "level": "HL",
+  "ia": { "maxMark": 30, "weight": 0.20 },
+  "papers": [
+    { "name": "Paper 1 (Geographic Themes)", "maxMark": 80, "weight": 0.35 },
+    { "name": "Paper 2 (Geographic Perspectives — Core)", "maxMark": 65, "weight": 0.25 },
+    { "name": "Paper 3 (HL Extension)", "maxMark": 30, "weight": 0.20 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "7": 76, "6": 62, "5": 48, "4": 35, "3": 24, "2": 14, "1": 0 } },
+    { "id": "Nov2023", "boundaries": { "7": 74, "6": 60, "5": 46, "4": 33, "3": 22, "2": 13, "1": 0 } },
+    { "id": "May2023", "boundaries": { "7": 78, "6": 64, "5": 50, "4": 37, "3": 26, "2": 15, "1": 0 } },
+    { "id": "Nov2022", "boundaries": { "7": 75, "6": 61, "5": 47, "4": 34, "3": 23, "2": 13, "1": 0 } }
+  ]
+}

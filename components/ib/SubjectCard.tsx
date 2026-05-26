@@ -104,7 +104,11 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
             {TABS.map(t => (
               <button
                 key={t.key}
-                onClick={() => setTab(t.key)}
+                onClick={() => {
+                  setTab(t.key)
+                  setIaMark(null)
+                  setPaperMarks(new Array(subject.papers.length).fill(null))
+                }}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                   tab === t.key
                     ? t.key === 'reverse'
@@ -279,9 +283,48 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
                 </div>
               </div>
 
+              {/* Required marks results */}
+              {reverseResults.length === 0 ? (
+                <div className="rounded-xl bg-[#f0fdf4] border border-green-200 px-4 py-3 text-sm text-[#16a34a] font-medium mb-4">
+                  All papers entered — nothing left to calculate
+                </div>
+              ) : (
+                <div className="space-y-2 mb-4">
+                  {reverseResults.map(r => (
+                    <div
+                      key={r.index}
+                      className={`rounded-xl border-2 px-4 py-3 flex items-center justify-between ${
+                        r.achievable ? 'bg-[#eff6ff] border-[#bfdbfe]' : 'bg-[#fef2f2] border-[#fecaca]'
+                      }`}
+                    >
+                      <div>
+                        <p className="text-xs font-bold text-[#374151]">{r.paper.name}</p>
+                        {r.achievable && (
+                          <p className="text-xs text-[#94a3b8] mt-0.5">
+                            {Math.round((r.requiredMark / r.maxMark) * 100)}% of marks needed
+                          </p>
+                        )}
+                      </div>
+                      {r.achievable ? (
+                        <div className="text-right">
+                          <span className="text-2xl font-black text-[#1a2340]">{r.requiredMark}</span>
+                          <span className="text-xs text-[#94a3b8] font-medium ml-0.5">/{r.maxMark}</span>
+                        </div>
+                      ) : (
+                        <span className="text-sm font-bold text-[#dc2626]">Not achievable</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <p className="text-xs text-[#94a3b8] mb-4">
+                Entered marks are treated as done · blank papers show what you need
+              </p>
+
               {/* Already scored inputs */}
               <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-2">Already scored · leave blank = we calculate</p>
-              <div className="space-y-2 mb-4">
+              <div className="space-y-2">
                 <div>
                   <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
                     iaError ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-[#2d7dd2]/40'
@@ -334,44 +377,6 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
                   </div>
                 ))}
               </div>
-
-              {reverseResults.length === 0 ? (
-                <div className="rounded-xl bg-[#f0fdf4] border border-green-200 px-4 py-3 text-sm text-[#16a34a] font-medium">
-                  All papers entered — nothing left to calculate
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {reverseResults.map(r => (
-                    <div
-                      key={r.index}
-                      className={`rounded-xl border-2 px-4 py-3 flex items-center justify-between ${
-                        r.achievable ? 'bg-[#eff6ff] border-[#bfdbfe]' : 'bg-[#fef2f2] border-[#fecaca]'
-                      }`}
-                    >
-                      <div>
-                        <p className="text-xs font-bold text-[#374151]">{r.paper.name}</p>
-                        {r.achievable && (
-                          <p className="text-xs text-[#94a3b8] mt-0.5">
-                            {Math.round((r.requiredMark / r.maxMark) * 100)}% of marks needed
-                          </p>
-                        )}
-                      </div>
-                      {r.achievable ? (
-                        <div className="text-right">
-                          <span className="text-2xl font-black text-[#1a2340]">{r.requiredMark}</span>
-                          <span className="text-xs text-[#94a3b8] font-medium ml-0.5">/{r.maxMark}</span>
-                        </div>
-                      ) : (
-                        <span className="text-sm font-bold text-[#dc2626]">Not achievable</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <p className="text-xs text-[#94a3b8] mt-3">
-                Entered marks are treated as done · blank papers show what you need
-              </p>
             </div>
           )}
         </div>

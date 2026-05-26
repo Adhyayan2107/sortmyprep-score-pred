@@ -1,0 +1,16 @@
+{
+  "subject": "Spanish B",
+  "code": "SpanishB",
+  "level": "HL",
+  "ia": { "maxMark": 30, "weight": 0.25 },
+  "papers": [
+    { "name": "Paper 1 (Productive Skills — Writing)", "maxMark": 30, "weight": 0.25 },
+    { "name": "Paper 2 (Receptive Skills — Listening & Reading)", "maxMark": 55, "weight": 0.50 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "7": 82, "6": 70, "5": 57, "4": 44, "3": 32, "2": 19, "1": 0 } },
+    { "id": "Nov2023", "boundaries": { "7": 80, "6": 68, "5": 55, "4": 42, "3": 30, "2": 18, "1": 0 } },
+    { "id": "May2023", "boundaries": { "7": 84, "6": 72, "5": 59, "4": 46, "3": 34, "2": 20, "1": 0 } },
+    { "id": "Nov2022", "boundaries": { "7": 81, "6": 69, "5": 56, "4": 43, "3": 31, "2": 18, "1": 0 } }
+  ]
+}

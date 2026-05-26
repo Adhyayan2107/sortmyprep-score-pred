@@ -1,0 +1,16 @@
+{
+  "subject": "Visual Arts",
+  "code": "VisualArts",
+  "level": "HL",
+  "ia": { "maxMark": 20, "weight": 0.40 },
+  "papers": [
+    { "name": "Comparative Study (External)", "maxMark": 20, "weight": 0.20 },
+    { "name": "Exhibition (External)", "maxMark": 20, "weight": 0.40 }
+  ],
+  "sessions": [
+    { "id": "May2024", "boundaries": { "7": 78, "6": 65, "5": 52, "4": 39, "3": 28, "2": 17, "1": 0 } },
+    { "id": "Nov2023", "boundaries": { "7": 76, "6": 63, "5": 50, "4": 37, "3": 26, "2": 16, "1": 0 } },
+    { "id": "May2023", "boundaries": { "7": 80, "6": 67, "5": 54, "4": 41, "3": 30, "2": 18, "1": 0 } },
+    { "id": "Nov2022", "boundaries": { "7": 77, "6": 64, "5": 51, "4": 38, "3": 27, "2": 16, "1": 0 } }
+  ]
+}
