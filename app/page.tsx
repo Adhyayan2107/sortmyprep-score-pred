@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Board } from '@/lib/types'
@@ -8,29 +8,59 @@ import IGCSECalculator from '@/components/igcse/IGCSECalculator'
 import IBCalculator from '@/components/ib/IBCalculator'
 
 function ShareButton() {
+  const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const url = typeof window !== 'undefined' ? window.location.href : ''
 
-  const handleShare = async () => {
-    const url = window.location.href
-    if (navigator.share) {
-      try { await navigator.share({ title: 'sortmyprep Grade Calculator', url }) } catch {}
-    } else {
-      await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
     }
+    if (open) document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(url)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
-    <button
-      onClick={handleShare}
-      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-[#374151] hover:border-[#2d7dd2] hover:text-[#2d7dd2] transition-colors bg-white"
-    >
-      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-      </svg>
-      {copied ? 'Copied!' : 'Share'}
-    </button>
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-bold text-[#374151] hover:border-[#2d7dd2] hover:text-[#2d7dd2] transition-colors bg-white"
+      >
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+        </svg>
+        Share
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 p-4 z-50">
+          <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-3">Share this tool</p>
+          <div className="flex gap-2 items-center">
+            <div className="flex-1 min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
+              <p className="text-xs text-[#374151] truncate font-medium">{url}</p>
+            </div>
+            <button
+              onClick={handleCopy}
+              className={`shrink-0 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                copied
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-[#1a2340] text-white hover:bg-[#2d7dd2]'
+              }`}
+            >
+              {copied ? '✓ Copied!' : 'Copy'}
+            </button>
+          </div>
+          <p className="text-[10px] text-[#94a3b8] mt-2">Anyone with this link can use the grade calculator</p>
+        </div>
+      )}
+    </div>
   )
 }
 
