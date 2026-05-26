@@ -9,7 +9,6 @@ import ASCalculator from '@/components/as/ASCalculator'
 import IBCalculator from '@/components/ib/IBCalculator'
 import ALevelCalculator from '@/components/alevel/ALevelCalculator'
 import WhatIfCalculator from '@/components/whatif/WhatIfCalculator'
-import AppTour from '@/components/shared/AppTour'
 
 function ShareButton() {
   const [open, setOpen] = useState(false)
@@ -146,8 +145,6 @@ export default function Home() {
       <footer className="text-center py-8 text-xs text-[#94a3b8] border-t border-gray-200">
         <p>Boundaries are estimates based on historical Cambridge &amp; IBO data. Always verify with your school.</p>
       </footer>
-
-      <AppTour />
     </div>
   )
 }
