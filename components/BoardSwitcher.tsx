@@ -11,8 +11,9 @@ export default function BoardSwitcher({ active, onChange }: Props) {
     <div className="flex gap-1 p-1 bg-gray-100 rounded-xl">
       {([
         { key: 'igcse', label: 'IGCSE' },
-        { key: 'as', label: 'AS Level' },
         { key: 'ib', label: 'IB Diploma' },
+        { key: 'alevel', label: 'A Level' },
+        { key: 'as', label: 'AS Level' },
       ] as { key: Board; label: string }[]).map(({ key, label }) => (
         <button
           key={key}

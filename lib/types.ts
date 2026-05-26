@@ -3,7 +3,44 @@ export type IBGrade = 1 | 2 | 3 | 4 | 5 | 6 | 7
 export type TOKEEGrade = 'A' | 'B' | 'C' | 'D' | 'E'
 export type Track = 'core' | 'extended'
 export type Level = 'HL' | 'SL'
-export type Board = 'igcse' | 'as' | 'ib'
+export type Board = 'igcse' | 'ib' | 'alevel' | 'as'
+export type ALevelGrade = 'A*' | 'A' | 'B' | 'C' | 'D' | 'E' | 'U'
+
+export interface ALevelComponent {
+  name: string
+  maxMark: number
+  weight: number
+}
+
+export interface ALevelBoundary {
+  Astar: number
+  A: number
+  B: number
+  C: number
+  D: number
+  E: number
+}
+
+export interface ALevelSession {
+  id: string
+  boundaries: ALevelBoundary
+}
+
+export interface ALevelSubjectData {
+  subject: string
+  board: string
+  syllabusCode: string
+  components: ALevelComponent[]
+  sessions: ALevelSession[]
+}
+
+export interface ALevelResult {
+  weightedScore: number
+  predictedGrade: ALevelGrade
+  conservativeGrade: ALevelGrade
+  optimisticGrade: ALevelGrade
+  boundaryRanges: { grade: ALevelGrade; min: number; max: number }[]
+}
 export type ASGrade = 'A' | 'B' | 'C' | 'D' | 'E' | 'U'
 
 export interface ASComponent {

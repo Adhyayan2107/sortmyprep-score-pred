@@ -7,6 +7,7 @@ import BoardSwitcher from '@/components/BoardSwitcher'
 import IGCSECalculator from '@/components/igcse/IGCSECalculator'
 import ASCalculator from '@/components/as/ASCalculator'
 import IBCalculator from '@/components/ib/IBCalculator'
+import ALevelCalculator from '@/components/alevel/ALevelCalculator'
 
 function ShareButton() {
   const [open, setOpen] = useState(false)
@@ -70,7 +71,7 @@ export default function Home() {
 
   useEffect(() => {
     const b = new URLSearchParams(window.location.search).get('board')
-    if (b === 'ib' || b === 'igcse' || b === 'as') setBoard(b as Board)
+    if (b === 'ib' || b === 'igcse' || b === 'as' || b === 'alevel') setBoard(b as Board)
   }, [])
 
   const handleBoardChange = (b: Board) => {
@@ -118,8 +119,9 @@ export default function Home() {
       {/* Calculator */}
       <main className="max-w-2xl mx-auto px-4 pb-16">
         {board === 'igcse' && <IGCSECalculator />}
-        {board === 'as' && <ASCalculator />}
         {board === 'ib' && <IBCalculator />}
+        {board === 'alevel' && <ALevelCalculator />}
+        {board === 'as' && <ASCalculator />}
       </main>
 
       <footer className="text-center py-8 text-xs text-[#94a3b8] border-t border-gray-200">
