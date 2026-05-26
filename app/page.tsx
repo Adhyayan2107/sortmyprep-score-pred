@@ -55,7 +55,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="sortmyprep" width={36} height={36} className="rounded-md" />
+            <Image src="/logo.png" alt="sortmyprep" width={44} height={44} className="rounded-md" />
           </Link>
           <div className="flex items-center gap-2">
             <ShareButton />
