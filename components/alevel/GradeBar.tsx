@@ -1,4 +1,5 @@
 'use client'
+import { useState, useEffect, useRef } from 'react'
 import type { ALevelResult, ALevelGrade } from '@/lib/types'
 
 const SEGMENT_COLORS: Record<ALevelGrade, string> = {
@@ -19,6 +20,18 @@ interface Props {
 export default function GradeBar({ result, score }: Props) {
   const displayRanges = [...result.boundaryRanges].reverse()
   const scorePercent = Math.min(100, Math.max(0, score))
+
+  const [pinPos, setPinPos] = useState(0)
+  const isFirst = useRef(true)
+
+  useEffect(() => {
+    if (isFirst.current) {
+      isFirst.current = false
+      const raf = requestAnimationFrame(() => setPinPos(scorePercent))
+      return () => cancelAnimationFrame(raf)
+    }
+    setPinPos(scorePercent)
+  }, [scorePercent])
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
@@ -51,7 +64,10 @@ export default function GradeBar({ result, score }: Props) {
       <div className="relative h-8 mb-1">
         <div
           className="absolute -translate-x-1/2 flex flex-col items-center"
-          style={{ left: `${scorePercent}%` }}
+          style={{
+            left: `${pinPos}%`,
+            transition: 'left 0.65s cubic-bezier(0.34,1.56,0.64,1)',
+          }}
         >
           <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#1a2340]" />
           <div className="bg-[#1a2340] text-white text-[10px] font-black px-2 py-0.5 rounded-lg mt-0.5 whitespace-nowrap shadow-sm">

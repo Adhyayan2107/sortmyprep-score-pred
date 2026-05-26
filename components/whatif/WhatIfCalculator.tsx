@@ -225,8 +225,13 @@ export default function WhatIfCalculator() {
               <span className="text-xs font-bold text-[#1a2340] uppercase tracking-widest">Your Marks</span>
               {currentGrade && gradeStyle && (
                 <span
-                  className="text-sm font-black px-3 py-1 rounded-full"
-                  style={{ backgroundColor: gradeStyle.bg, color: gradeStyle.text }}
+                  key={currentGrade}
+                  className="text-sm font-black px-3 py-1 rounded-full inline-block"
+                  style={{
+                    backgroundColor: gradeStyle.bg,
+                    color: gradeStyle.text,
+                    animation: 'badge-pop 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+                  }}
                 >
                   {currentGrade}
                 </span>
@@ -267,13 +272,32 @@ export default function WhatIfCalculator() {
           {/* Live grade card */}
           {currentGrade && gradeStyle && (
             <div
-              className="rounded-2xl p-5 mb-4 text-center"
+              className="rounded-2xl p-5 mb-4 text-center relative overflow-hidden"
               style={{ backgroundColor: gradeStyle.bg }}
             >
+              {(currentGrade === 'A*' || currentGrade === 'A') && (
+                <div className="flex justify-center gap-2 mb-1">
+                  {['✦', '✦', '✦'].map((s, i) => (
+                    <span
+                      key={i}
+                      className="text-xs"
+                      style={{ color: gradeStyle.text, opacity: 0.7, animation: `float-star ${0.9 + i * 0.2}s ease-in-out infinite` }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
               <p className="text-xs font-bold uppercase tracking-widest mb-1 opacity-60" style={{ color: gradeStyle.text }}>
                 Predicted Grade
               </p>
-              <p className="text-6xl font-black" style={{ color: gradeStyle.text }}>{currentGrade}</p>
+              <p
+                key={currentGrade}
+                className="text-6xl font-black inline-block"
+                style={{ color: gradeStyle.text, animation: 'grade-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards' }}
+              >
+                {currentGrade}
+              </p>
               <p className="text-xs mt-2 opacity-70 font-medium" style={{ color: gradeStyle.text }}>
                 Weighted score: {currentScore.toFixed(1)}%
               </p>

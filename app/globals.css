@@ -20,3 +20,47 @@ body {
   color: #374151;
   -webkit-font-smoothing: antialiased;
 }
+
+@keyframes grade-pop {
+  0%   { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+  55%  { transform: scale(1.28) rotate(5deg); }
+  80%  { transform: scale(0.93) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes card-rise {
+  from { transform: translateY(28px) scale(0.96); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes modal-bounce {
+  0%   { transform: scale(0.8) translateY(32px); opacity: 0; }
+  65%  { transform: scale(1.04) translateY(-6px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  40%       { transform: translateX(10px); }
+  60%       { transform: translateX(-7px); }
+  80%       { transform: translateX(6px); }
+}
+
+@keyframes badge-pop {
+  0%   { transform: scale(1) rotate(0); }
+  30%  { transform: scale(1.55) rotate(8deg); }
+  60%  { transform: scale(0.86) rotate(-4deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+@keyframes float-star {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+  50%  { transform: translateY(-6px) rotate(15deg) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+}
+
+@keyframes score-glow {
+  0%, 100% { text-shadow: none; }
+  50%       { text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+}
