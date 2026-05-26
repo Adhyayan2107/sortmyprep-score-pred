@@ -6,15 +6,20 @@ interface Props {
   marks: (number | null)[]
   onChange: (index: number, value: number | null) => void
   lockedIndices?: number[]
+  label?: string
+  note?: string
 }
 
-export default function ComponentInputs({ components, marks, onChange, lockedIndices = [] }: Props) {
+export default function ComponentInputs({ components, marks, onChange, lockedIndices = [], label = 'Your Marks', note }: Props) {
   const enteredCount = marks.filter(m => m !== null).length
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
       <div className="flex items-center justify-between mb-4">
-        <label className="text-xs font-bold text-[#1a2340] uppercase tracking-widest">Your Marks</label>
+        <div>
+          <label className="text-xs font-bold text-[#1a2340] uppercase tracking-widest">{label}</label>
+          {note && <p className="text-xs text-[#94a3b8] mt-0.5">{note}</p>}
+        </div>
         {enteredCount > 0 && enteredCount < components.length && (
           <span className="text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
             {enteredCount}/{components.length} papers

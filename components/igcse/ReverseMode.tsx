@@ -1,9 +1,6 @@
 'use client'
-import { useState } from 'react'
 import type { IGCSEComponent, IGCSESession, IGCSEGrade } from '@/lib/types'
 import { calculateRequiredMark } from '@/lib/igcse-calc'
-
-const GRADES: IGCSEGrade[] = ['A*', 'A', 'B', 'C', 'D', 'E']
 
 const GRADE_COLORS: Partial<Record<IGCSEGrade, { bg: string; text: string }>> = {
   'A*': { bg: '#f0fdf4', text: '#16a34a' },
@@ -18,10 +15,10 @@ interface Props {
   components: IGCSEComponent[]
   enteredMarks: (number | null)[]
   sessions: IGCSESession[]
+  targetGrade: IGCSEGrade
 }
 
-export default function ReverseMode({ components, enteredMarks, sessions }: Props) {
-  const [targetGrade, setTargetGrade] = useState<IGCSEGrade>('A')
+export default function ReverseMode({ components, enteredMarks, sessions, targetGrade }: Props) {
   const results = calculateRequiredMark(components, enteredMarks, targetGrade, sessions)
 
   if (results.length === 0) {
@@ -32,32 +29,8 @@ export default function ReverseMode({ components, enteredMarks, sessions }: Prop
     )
   }
 
-  const colors = GRADE_COLORS[targetGrade]
-
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-      <label className="block text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-4">Target Grade</label>
-
-      <div className="flex gap-2 mb-5 flex-wrap">
-        {GRADES.map(g => {
-          const c = GRADE_COLORS[g]
-          return (
-            <button
-              key={g}
-              onClick={() => setTargetGrade(g)}
-              className={`flex-1 min-w-[40px] py-2.5 rounded-xl text-sm font-black border-2 transition-all ${
-                targetGrade === g
-                  ? 'shadow-sm scale-105 border-transparent'
-                  : 'border-gray-200 text-gray-400 hover:border-gray-300 bg-white'
-              }`}
-              style={targetGrade === g && c ? { backgroundColor: c.bg, color: c.text } : {}}
-            >
-              {g}
-            </button>
-          )
-        })}
-      </div>
-
       <div className="space-y-3">
         {results.map(r => (
           <div

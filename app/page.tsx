@@ -42,7 +42,7 @@ function ShareButton() {
 
       {open && (
         <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 p-4 z-50">
-          <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-3">Share this tool</p>
+          <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-3">Challenge a friend!</p>
           <div className="flex gap-2 items-center">
             <div className="flex-1 min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
               <p className="text-xs text-[#374151] truncate font-medium">{url}</p>
@@ -58,7 +58,7 @@ function ShareButton() {
               {copied ? '✓ Copied!' : 'Copy'}
             </button>
           </div>
-          <p className="text-[10px] text-[#94a3b8] mt-2">Anyone with this link can use the grade calculator</p>
+          <p className="text-[10px] text-[#94a3b8] mt-2">Share the link — see if they can beat your grade</p>
         </div>
       )}
     </div>

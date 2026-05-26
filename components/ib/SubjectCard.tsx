@@ -257,7 +257,30 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
           {/* REVERSE MODE tab */}
           {tab === 'reverse' && (
             <div>
-              {/* Shared inputs for reverse (same mark fields) */}
+              {/* Target grade — at top */}
+              <div className="flex items-center gap-3 mb-4">
+                <p className="text-xs font-bold text-[#374151] shrink-0">Target:</p>
+                <div className="flex gap-1 flex-1">
+                  {([7, 6, 5, 4, 3] as IBGrade[]).map(g => {
+                    const c = GRADE_COLORS[g]
+                    return (
+                      <button
+                        key={g}
+                        onClick={() => setTargetGrade(g)}
+                        className={`flex-1 py-2 rounded-lg text-sm font-black border-2 transition-all ${
+                          targetGrade === g ? 'shadow-sm' : 'border-gray-200 text-gray-400 bg-white'
+                        }`}
+                        style={targetGrade === g ? { backgroundColor: c.bg, color: c.text, borderColor: c.border } : {}}
+                      >
+                        {g}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Already scored inputs */}
+              <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-2">Already scored · leave blank = we calculate</p>
               <div className="space-y-2 mb-4">
                 <div>
                   <div className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 transition-colors ${
@@ -310,28 +333,6 @@ export default function SubjectCard({ subject, level, isOpen, onToggle, onRemove
                     {paperErrors[i] && <p className="text-xs text-red-500 font-semibold mt-1 ml-1">Max mark is {paper.maxMark}</p>}
                   </div>
                 ))}
-              </div>
-
-              {/* Target grade */}
-              <div className="flex items-center gap-3 mb-3">
-                <p className="text-xs font-bold text-[#374151] shrink-0">Target:</p>
-                <div className="flex gap-1 flex-1">
-                  {([7, 6, 5, 4, 3] as IBGrade[]).map(g => {
-                    const c = GRADE_COLORS[g]
-                    return (
-                      <button
-                        key={g}
-                        onClick={() => setTargetGrade(g)}
-                        className={`flex-1 py-2 rounded-lg text-sm font-black border-2 transition-all ${
-                          targetGrade === g ? 'shadow-sm' : 'border-gray-200 text-gray-400 bg-white'
-                        }`}
-                        style={targetGrade === g ? { backgroundColor: c.bg, color: c.text, borderColor: c.border } : {}}
-                      >
-                        {g}
-                      </button>
-                    )
-                  })}
-                </div>
               </div>
 
               {reverseResults.length === 0 ? (

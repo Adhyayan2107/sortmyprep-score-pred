@@ -1,9 +1,6 @@
 'use client'
-import { useState } from 'react'
 import type { ASComponent, ASSession, ASGrade } from '@/lib/types'
 import { calculateASRequiredMark } from '@/lib/as-calc'
-
-const GRADES: ASGrade[] = ['A', 'B', 'C', 'D', 'E']
 
 const GRADE_COLORS: Record<string, { bg: string; text: string }> = {
   'A': { bg: '#f0fdf4', text: '#16a34a' },
@@ -17,10 +14,10 @@ interface Props {
   components: ASComponent[]
   enteredMarks: (number | null)[]
   sessions: ASSession[]
+  targetGrade: ASGrade
 }
 
-export default function ReverseMode({ components, enteredMarks, sessions }: Props) {
-  const [targetGrade, setTargetGrade] = useState<ASGrade>('A')
+export default function ReverseMode({ components, enteredMarks, sessions, targetGrade }: Props) {
   const results = calculateASRequiredMark(components, enteredMarks, targetGrade, sessions)
 
   if (results.length === 0) {
@@ -31,32 +28,8 @@ export default function ReverseMode({ components, enteredMarks, sessions }: Prop
     )
   }
 
-  const colors = GRADE_COLORS[targetGrade]
-
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-      <label className="block text-xs font-bold text-[#1a2340] uppercase tracking-widest mb-4">Target Grade</label>
-
-      <div className="flex gap-2 mb-5">
-        {GRADES.map(g => {
-          const c = GRADE_COLORS[g]
-          return (
-            <button
-              key={g}
-              onClick={() => setTargetGrade(g)}
-              className={`flex-1 py-2.5 rounded-xl text-sm font-black border-2 transition-all ${
-                targetGrade === g
-                  ? 'shadow-sm scale-105 border-transparent'
-                  : 'border-gray-200 text-gray-400 hover:border-gray-300 bg-white'
-              }`}
-              style={targetGrade === g && c ? { backgroundColor: c.bg, color: c.text } : {}}
-            >
-              {g}
-            </button>
-          )
-        })}
-      </div>
-
       <div className="space-y-3">
         {results.map(r => (
           <div
