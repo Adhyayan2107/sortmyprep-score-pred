@@ -55,13 +55,9 @@ export default async function OddsPage({
       <div className="min-h-screen bg-[#f1f5f9]">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-            <Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" />
-            <Link
-              href="/odds?step=board"
-              className="text-xs font-bold text-[#64748b] hover:text-[#1a2340] transition-colors"
-            >
-              ← Try Again
-            </Link>
+            <Link href={backUrl} className="text-xs font-bold text-[#64748b] hover:text-[#1a2340] transition-colors">← Back</Link>
+            <Link href="/odds"><Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" /></Link>
+            <Link href="/odds?step=board" className="text-xs font-bold text-[#64748b] hover:text-[#1a2340] transition-colors">Try Again</Link>
           </div>
         </header>
 

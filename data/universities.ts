@@ -19,8 +19,12 @@ export interface University {
     alevel: GradeThreshold
     igcse: GradeThreshold
     as: GradeThreshold
+    ap: GradeThreshold
   }
 }
+
+// AP scores 1–5 map to grades: 5→A*, 4→A, 3→B, 2→C, 1→D
+// AP thresholds expressed as grade strings of top 3 subject equivalents
 
 export const UNIVERSITIES: University[] = [
   {
@@ -32,6 +36,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       igcse:  { competitive: 'A*A*A*', borderline: 'A*A*A', reach: 'A*AA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*A*A*', borderline: 'A*A*A', reach: 'A*AA' },
     },
   },
   {
@@ -43,6 +48,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       igcse:  { competitive: 'A*A*A*', borderline: 'A*A*A', reach: 'A*AA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*A*A*', borderline: 'A*A*A', reach: 'A*AA' },
     },
   },
   {
@@ -54,6 +60,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       igcse:  { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
     },
   },
   {
@@ -65,6 +72,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       igcse:  { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -76,6 +84,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*AA', borderline: 'AAA', reach: 'ABB' },
       igcse:  { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAB' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -87,6 +96,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       igcse:  { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       as:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -98,6 +108,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       igcse:  { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -109,6 +120,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       igcse:  { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       as:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
+      ap:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
     },
   },
   {
@@ -120,6 +132,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       igcse:  { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       as:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
+      ap:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
     },
   },
   {
@@ -131,6 +144,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
       igcse:  { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       as:     { competitive: 'ABB', borderline: 'BBB', reach: 'BBC' },
+      ap:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
     },
   },
   {
@@ -142,6 +156,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       igcse:  { competitive: 'A*A*A', borderline: 'A*AA', reach: 'AAA' },
       as:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -153,6 +168,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       igcse:  { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       as:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
+      ap:     { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
     },
   },
   {
@@ -164,6 +180,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       igcse:  { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
       as:     { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
   {
@@ -175,6 +192,7 @@ export const UNIVERSITIES: University[] = [
       alevel: { competitive: 'AAB', borderline: 'ABB', reach: 'BBB' },
       igcse:  { competitive: 'AAA', borderline: 'AAB', reach: 'ABB' },
       as:     { competitive: 'ABB', borderline: 'BBB', reach: 'BBC' },
+      ap:     { competitive: 'A*AA', borderline: 'AAA', reach: 'AAB' },
     },
   },
 ]
@@ -184,13 +202,35 @@ export const POPULAR_UNI_IDS = [
 ]
 
 export const COURSE_LABELS: Record<string, string> = {
+  // Health & Medicine
   medicine:    'Medicine',
+  dentistry:   'Dentistry',
+  pharmacy:    'Pharmacy',
+  biomedical:  'Biomedical Science',
+  nursing:     'Nursing & Midwifery',
+  psychology:  'Psychology',
+  // Engineering & Technology
   engineering: 'Engineering',
   cs:          'Computer Science',
-  economics:   'Economics',
-  law:         'Law',
+  mathematics: 'Mathematics',
+  architecture:'Architecture',
+  // Natural Sciences
   sciences:    'Natural Sciences',
-  humanities:  'Humanities',
-  business:    'Business',
+  environmental:'Environmental Science',
+  // Social Sciences
+  economics:   'Economics',
+  politics:    'Politics & IR',
+  sociology:   'Sociology',
+  geography:   'Geography',
+  // Business & Finance
+  business:    'Business Management',
+  finance:     'Finance & Accounting',
+  // Law & Humanities
+  law:         'Law',
+  history:     'History',
+  philosophy:  'Philosophy / PPE',
+  languages:   'Languages & Linguistics',
+  // Arts & Media
   arts:        'Arts & Design',
+  media:       'Film & Media',
 }

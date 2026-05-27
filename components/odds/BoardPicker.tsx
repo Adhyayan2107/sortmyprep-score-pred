@@ -19,6 +19,13 @@ const BOARDS = [
     desc: 'Grades A*–E',
   },
   {
+    id: 'ap',
+    label: 'AP',
+    full: 'Advanced Placement (US)',
+    icon: '🇺🇸',
+    desc: 'Scores 1–5',
+  },
+  {
     id: 'igcse',
     label: 'IGCSE',
     full: 'Cambridge IGCSE',
@@ -41,9 +48,8 @@ export default function BoardPicker() {
     <div className="min-h-screen bg-[#f1f5f9]">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/odds">
-            <Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" />
-          </Link>
+          <Link href="/odds" className="text-xs font-bold text-[#64748b] hover:text-[#1a2340] transition-colors">← Back</Link>
+          <Link href="/odds"><Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" /></Link>
           <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">Step 1 of 3</span>
         </div>
       </header>
@@ -61,7 +67,7 @@ export default function BoardPicker() {
             <button
               key={b.id}
               onClick={() => router.push(`/odds?step=grades&board=${b.id}`)}
-              className="bg-white border-2 border-gray-200 rounded-2xl p-6 text-left hover:border-[#2d7dd2] hover:shadow-lg transition-all group cursor-pointer"
+              className={`bg-white border-2 border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center hover:border-[#2d7dd2] hover:shadow-lg transition-all group cursor-pointer${BOARDS.length % 2 !== 0 && i === BOARDS.length - 1 ? ' col-span-2 max-w-[calc(50%-0.5rem)] mx-auto w-full' : ''}`}
               style={{ animation: `card-rise 0.4s ${i * 0.07}s ease both` }}
             >
               <span className="text-3xl block mb-3">{b.icon}</span>

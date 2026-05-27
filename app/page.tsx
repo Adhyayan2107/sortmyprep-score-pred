@@ -101,15 +101,23 @@ export default function Home() {
 
       {/* Hero */}
       <section className="max-w-4xl mx-auto px-4 pt-10 pb-8 text-center">
-        <a
-          href="https://sortmyprep.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-xs font-semibold text-[#2d7dd2] mb-4 shadow-sm hover:border-[#2d7dd2] hover:shadow-md transition-all"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#2d7dd2] animate-pulse" />
-          Level up your prep at sortmyprep.com
-        </a>
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+          <a
+            href="https://sortmyprep.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-xs font-semibold text-[#2d7dd2] shadow-sm hover:border-[#2d7dd2] hover:shadow-md transition-all"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2d7dd2] animate-pulse" />
+            Level up your prep at sortmyprep.com
+          </a>
+          <Link
+            href="/odds"
+            className="inline-flex items-center gap-2 bg-[#1a2340] text-white border border-[#1a2340] rounded-full px-4 py-1.5 text-xs font-bold shadow-sm hover:bg-[#2d7dd2] hover:border-[#2d7dd2] transition-all"
+          >
+            🎯 Will your grade get you in? →
+          </Link>
+        </div>
         {isWhatIf ? (
           <>
             <h1 className="text-3xl sm:text-4xl font-black text-[#1a2340] tracking-tight leading-tight">

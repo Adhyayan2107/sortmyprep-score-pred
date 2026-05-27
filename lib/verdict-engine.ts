@@ -27,8 +27,8 @@ export function computeVerdict(
     return 'STRONG_REACH'
   }
 
-  const studentScore = GRADE_POINTS[grade ?? ''] ?? 0
-  const boardKey = board as 'alevel' | 'igcse' | 'as'
+  const studentScore = grade ? avgGradeString(grade) : 0
+  const boardKey = board as 'alevel' | 'igcse' | 'as' | 'ap'
   const thresholds = university.offers[boardKey]
   if (!thresholds) return 'STRONG_REACH'
 

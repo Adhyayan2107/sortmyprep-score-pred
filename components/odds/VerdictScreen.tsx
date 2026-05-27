@@ -45,16 +45,6 @@ export default function VerdictScreen({
           transition: 'opacity 0.5s ease, transform 0.5s ease',
         }}
       >
-        <div className="flex items-center justify-between mb-8">
-          <Link href={backUrl} className="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity" style={{ color: theme.accent }}>
-            ← Back
-          </Link>
-          <span className="text-xs font-bold uppercase tracking-widest opacity-40 text-white">
-            {uniName} · {courseName}
-          </span>
-          <div className="w-12" />
-        </div>
-
         <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: theme.accent }}>
           Verdict
         </p>

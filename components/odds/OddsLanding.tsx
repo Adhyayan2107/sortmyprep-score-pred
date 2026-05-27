@@ -24,7 +24,7 @@ export default function OddsLanding() {
     <div className="min-h-screen bg-[#f1f5f9] flex flex-col">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center">
-          <Link href="/">
+          <Link href="/odds">
             <Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" />
           </Link>
         </div>

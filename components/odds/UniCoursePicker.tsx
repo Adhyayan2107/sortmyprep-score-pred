@@ -6,16 +6,23 @@ import { useRouter } from 'next/navigation'
 import { UNIVERSITIES, POPULAR_UNI_IDS, COURSE_LABELS } from '@/data/universities'
 
 const COURSE_ICONS: Record<string, string> = {
-  medicine:    '🩺',
-  engineering: '⚙️',
-  cs:          '💻',
-  economics:   '📈',
-  law:         '⚖️',
-  sciences:    '🔬',
-  humanities:  '📚',
-  business:    '💼',
-  arts:        '🎨',
+  medicine: '🩺', dentistry: '🦷', pharmacy: '💊', biomedical: '🔬',
+  nursing: '🏥', psychology: '🧠', engineering: '⚙️', cs: '💻',
+  mathematics: '∑', architecture: '🏛️', sciences: '🧪', environmental: '🌿',
+  economics: '📈', politics: '🌐', sociology: '👥', geography: '🗺️',
+  business: '💼', finance: '💰', law: '⚖️', history: '📜',
+  philosophy: '🤔', languages: '💬', arts: '🎨', media: '🎬',
 }
+
+const COURSE_CATEGORIES = [
+  { label: 'Health & Medicine', ids: ['medicine', 'dentistry', 'pharmacy', 'biomedical', 'nursing', 'psychology'] },
+  { label: 'Engineering & Technology', ids: ['engineering', 'cs', 'mathematics', 'architecture'] },
+  { label: 'Sciences', ids: ['sciences', 'environmental'] },
+  { label: 'Social Sciences', ids: ['economics', 'politics', 'sociology', 'geography'] },
+  { label: 'Business & Finance', ids: ['business', 'finance'] },
+  { label: 'Law & Humanities', ids: ['law', 'history', 'philosophy', 'languages'] },
+  { label: 'Arts & Media', ids: ['arts', 'media'] },
+]
 
 export default function UniCoursePicker({
   board,
@@ -55,9 +62,8 @@ export default function UniCoursePicker({
     <div className="min-h-screen bg-[#f1f5f9]">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href={`/odds?${backParams.toString()}`}>
-            <Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" />
-          </Link>
+          <Link href={`/odds?${backParams.toString()}`} className="text-xs font-bold text-[#64748b] hover:text-[#1a2340] transition-colors">← Back</Link>
+          <Link href="/odds"><Image src="/logo.png" alt="sortmyprep" width={571} height={106} className="h-5 w-auto" /></Link>
           <span className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest">Step 3 of 3</span>
         </div>
       </header>
@@ -115,20 +121,27 @@ export default function UniCoursePicker({
         {/* Course picker */}
         <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4">
           <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-3">Course</p>
-          <div className="grid grid-cols-3 gap-2">
-            {Object.entries(COURSE_LABELS).map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => setSelectedCourse(id)}
-                className={`rounded-xl py-3 px-2 flex flex-col items-center gap-1.5 transition-all border-2 ${
-                  selectedCourse === id
-                    ? 'bg-[#1a2340] text-white border-[#1a2340]'
-                    : 'bg-gray-50 text-[#374151] border-gray-100 hover:border-[#2d7dd2]'
-                }`}
-              >
-                <span className="text-xl">{COURSE_ICONS[id]}</span>
-                <span className="text-[11px] font-bold leading-tight text-center">{label}</span>
-              </button>
+          <div className="space-y-3">
+            {COURSE_CATEGORIES.map(cat => (
+              <div key={cat.label}>
+                <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest mb-1.5">{cat.label}</p>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {cat.ids.map(id => (
+                    <button
+                      key={id}
+                      onClick={() => setSelectedCourse(id)}
+                      className={`rounded-xl py-2.5 px-2 flex flex-col items-center gap-1 transition-all border-2 ${
+                        selectedCourse === id
+                          ? 'bg-[#1a2340] text-white border-[#1a2340]'
+                          : 'bg-gray-50 text-[#374151] border-gray-100 hover:border-[#2d7dd2]'
+                      }`}
+                    >
+                      <span className="text-lg">{COURSE_ICONS[id]}</span>
+                      <span className="text-[10px] font-bold leading-tight text-center">{COURSE_LABELS[id]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
