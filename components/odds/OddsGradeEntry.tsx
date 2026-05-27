@@ -10,6 +10,7 @@ import { calculateIGCSEGrade } from '@/lib/igcse-calc'
 import { calculateIBGrade } from '@/lib/ib-calc'
 import type { IBSubjectData } from '@/lib/types'
 import CustomSelect from '@/components/shared/CustomSelect'
+import { getIBSubjectData } from '@/lib/ib-data-loader'
 
 // ─── Grade ordering ───────────────────────────────────────────────────────────
 const GRADE_POINTS: Record<string, number> = {
@@ -193,8 +194,14 @@ function SubjectCard({
         <div className="flex items-center gap-3">
           {entry.grade && colors && (
             <span
+              key={entry.grade}
               className="text-sm font-black px-2.5 py-1 rounded-lg"
-              style={{ backgroundColor: colors.bg, color: colors.text }}
+              style={{
+                backgroundColor: colors.bg,
+                color: colors.text,
+                animation: 'grade-badge-pop 0.45s cubic-bezier(0.34,1.56,0.64,1) both',
+                display: 'inline-block',
+              }}
             >
               {entry.grade}
             </span>
@@ -235,6 +242,22 @@ function MultiSubjectEntry({ board }: { board: string }) {
 
   const usedFiles = entries.map(e => e.file)
 
+  // Restore saved state on mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem(`odds_multi_${board}`)
+    if (!saved) return
+    try {
+      const parsed: Array<{ file: string; label: string; marks: (number | null)[]; grade: string | null }> = JSON.parse(saved)
+      if (!Array.isArray(parsed) || parsed.length === 0) return
+      Promise.all(
+        parsed.map(async (p) => {
+          const data = await import(`@/data/${board}/${p.file}.json`)
+          return { id: `${p.file}-restored`, file: p.file, label: p.label, data: data.default, marks: p.marks, grade: p.grade } as SubjectEntry
+        })
+      ).then(restored => setEntries(restored))
+    } catch {}
+  }, [board])
+
   const handleAddSubject = useCallback(async (file: string, label: string) => {
     if (usedFiles.includes(file)) return
     setLoadingFile(file)
@@ -269,7 +292,20 @@ function MultiSubjectEntry({ board }: { board: string }) {
   const gradedCount = grades.filter(Boolean).length
   const canProceed = overallGrade.length > 0
 
+  const [prevCanProceed, setPrevCanProceed] = useState(false)
+  const [nextBtnKey, setNextBtnKey] = useState(0)
+
+  useEffect(() => {
+    if (canProceed && !prevCanProceed) setNextBtnKey(k => k + 1)
+    setPrevCanProceed(canProceed)
+  }, [canProceed, prevCanProceed])
+
   const handleNext = () => {
+    try {
+      sessionStorage.setItem(`odds_multi_${board}`, JSON.stringify(
+        entries.map(e => ({ file: e.file, label: e.label, marks: e.marks, grade: e.grade }))
+      ))
+    } catch {}
     router.push(`/odds?step=target&board=${board}&grade=${encodeURIComponent(overallGrade)}`)
   }
 
@@ -304,12 +340,12 @@ function MultiSubjectEntry({ board }: { board: string }) {
           + Add Subject
         </button>
       ) : (
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest">Select Subject</p>
-            <button onClick={() => setShowPicker(false)} className="text-xs text-[#94a3b8] hover:text-[#1a2340]">Cancel</button>
+        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-4">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <p className="text-xs font-bold text-[#1a2340] uppercase tracking-widest">Add a Subject</p>
+            <button onClick={() => setShowPicker(false)} className="text-xs text-[#94a3b8] hover:text-[#1a2340] font-semibold">✕ Close</button>
           </div>
-          <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1">
+          <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto p-3">
             {subjects.map(s => {
               const used = usedFiles.includes(s.file)
               const loading = loadingFile === s.file
@@ -318,16 +354,16 @@ function MultiSubjectEntry({ board }: { board: string }) {
                   key={s.file}
                   onClick={() => !used && handleAddSubject(s.file, s.label)}
                   disabled={used || !!loadingFile}
-                  className={`text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all border ${
+                  className={`relative flex flex-col items-center justify-center text-center px-2 py-3 rounded-xl text-xs font-semibold transition-all border gap-1 ${
                     used
                       ? 'bg-gray-50 text-[#94a3b8] border-gray-100 cursor-not-allowed'
                       : loading
                       ? 'bg-[#2d7dd2] text-white border-[#2d7dd2]'
-                      : 'bg-white text-[#374151] border-gray-200 hover:border-[#2d7dd2] hover:text-[#2d7dd2]'
+                      : 'bg-white text-[#374151] border-gray-200 hover:border-[#2d7dd2] hover:text-[#2d7dd2] hover:bg-blue-50'
                   }`}
                 >
-                  {loading ? 'Loading…' : s.label}
-                  {used && <span className="ml-1 text-[#94a3b8]">✓</span>}
+                  <span className="leading-tight">{loading ? 'Loading…' : s.label}</span>
+                  {used && <span className="text-[10px] text-emerald-600 font-bold">✓ Added</span>}
                 </button>
               )
             })}
@@ -369,6 +405,7 @@ function MultiSubjectEntry({ board }: { board: string }) {
       {/* Sticky bottom bar */}
       <div className="sticky bottom-0 pb-6 pt-2 bg-[#f1f5f9]">
         <button
+          key={nextBtnKey}
           onClick={handleNext}
           disabled={!canProceed}
           className={`w-full font-bold py-4 rounded-2xl text-base transition-colors shadow-lg ${
@@ -376,6 +413,7 @@ function MultiSubjectEntry({ board }: { board: string }) {
               ? 'bg-[#1a2340] text-white hover:bg-[#2d7dd2]'
               : 'bg-gray-200 text-[#94a3b8] cursor-not-allowed'
           }`}
+          style={nextBtnKey > 0 && canProceed ? { animation: 'bounce-in 0.5s cubic-bezier(0.34,1.56,0.64,1) both' } : {}}
         >
           {canProceed ? 'Next: Pick my university →' : 'Add subjects & enter marks to continue'}
         </button>
@@ -395,7 +433,6 @@ function SubjectCalcPanel({
   onGradeComputed: (grade: number) => void
 }) {
   const [data, setData] = useState<IBSubjectData | null>(null)
-  const [loadingData, setLoadingData] = useState(true)
   const [iaMark, setIaMark] = useState('')
   const [paperMarks, setPaperMarks] = useState<string[]>([])
   const [computedGrade, setComputedGrade] = useState<number | null>(null)
@@ -404,19 +441,13 @@ function SubjectCalcPanel({
   const levelStr = IB_SL_ONLY.has(subjectName) ? 'sl' : level.toLowerCase()
 
   useEffect(() => {
-    setLoadingData(true)
     setIaMark('')
     setPaperMarks([])
     setComputedGrade(null)
-    if (!fileBase) { setLoadingData(false); return }
-    import(`@/data/ib/${fileBase}-${levelStr}.json`)
-      .then(m => {
-        const d = m.default as IBSubjectData
-        setData(d)
-        setPaperMarks(Array(d.papers.length).fill(''))
-        setLoadingData(false)
-      })
-      .catch(() => { setData(null); setLoadingData(false) })
+    if (!fileBase) { setData(null); return }
+    const d = getIBSubjectData(fileBase, levelStr)
+    setData(d)
+    setPaperMarks(d ? Array(d.papers.length).fill('') : [])
   }, [fileBase, levelStr])
 
   useEffect(() => {
@@ -430,8 +461,6 @@ function SubjectCalcPanel({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iaMark, paperMarks, data])
 
-  if (loadingData) return <p className="text-xs text-[#94a3b8] mt-2 text-center">Loading mark scheme…</p>
-
   if (!data) return (
     <p className="text-xs text-amber-600 mt-3 bg-amber-50 rounded-xl px-3 py-2 text-center">
       No mark scheme available — select your grade manually above.
@@ -439,38 +468,53 @@ function SubjectCalcPanel({
   )
 
   return (
-    <div className="mt-3 pt-3 border-t border-gray-100 space-y-2.5">
-      <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest mb-1">Enter marks to auto-fill grade</p>
-      <div className="flex items-center gap-3">
-        <span className="text-xs text-[#64748b] w-36 shrink-0">IA (max {data.ia.maxMark})</span>
-        <input
-          type="number" min={0} max={data.ia.maxMark}
-          value={iaMark}
-          onChange={e => setIaMark(e.target.value)}
-          placeholder="—"
-          className="w-20 border border-gray-200 rounded-lg px-2 py-1.5 text-sm text-[#1a2340] text-center outline-none focus:border-[#2d7dd2]"
-        />
-      </div>
-      {data.papers.map((paper, pi) => (
-        <div key={pi} className="flex items-center gap-3">
-          <span className="text-xs text-[#64748b] w-36 shrink-0">{paper.name} (max {paper.maxMark})</span>
+    <div className="mt-3 pt-3 border-t border-gray-100">
+      <p className="text-[10px] font-bold text-[#94a3b8] uppercase tracking-widest mb-2.5">Enter marks to auto-fill</p>
+      <div className="space-y-2">
+        {/* IA row */}
+        <div className="flex items-center gap-3 bg-[#f8fafc] rounded-xl px-3 py-2.5">
+          <span className="text-xs font-semibold text-[#64748b] flex-1">Internal Assessment (IA)</span>
           <input
-            type="number" min={0} max={paper.maxMark}
-            value={paperMarks[pi] ?? ''}
+            type="number" min={0} max={data.ia.maxMark}
+            value={iaMark}
+            onKeyDown={e => ['e','E','+','-','.'].includes(e.key) && e.preventDefault()}
             onChange={e => {
-              const next = [...paperMarks]
-              next[pi] = e.target.value
-              setPaperMarks(next)
+              const raw = e.target.value.replace(/[^0-9]/g, '')
+              setIaMark(raw === '' ? '' : String(Math.min(Number(raw), data.ia.maxMark)))
             }}
             placeholder="—"
-            className="w-20 border border-gray-200 rounded-lg px-2 py-1.5 text-sm text-[#1a2340] text-center outline-none focus:border-[#2d7dd2]"
+            className="w-16 bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-sm font-bold text-[#1a2340] text-center outline-none focus:border-[#2d7dd2] transition-colors"
           />
+          <span className="text-[10px] text-[#94a3b8] font-medium w-10 text-right shrink-0">/ {data.ia.maxMark}</span>
         </div>
-      ))}
+        {/* Paper rows */}
+        {data.papers.map((paper, pi) => (
+          <div key={pi} className="flex items-center gap-3 bg-[#f8fafc] rounded-xl px-3 py-2.5">
+            <span className="text-xs font-semibold text-[#64748b] flex-1 truncate">{paper.name}</span>
+            <input
+              type="number" min={0} max={paper.maxMark}
+              value={paperMarks[pi] ?? ''}
+              onKeyDown={e => ['e','E','+','-','.'].includes(e.key) && e.preventDefault()}
+              onChange={e => {
+                const raw = e.target.value.replace(/[^0-9]/g, '')
+                const next = [...paperMarks]
+                next[pi] = raw === '' ? '' : String(Math.min(Number(raw), paper.maxMark))
+                setPaperMarks(next)
+              }}
+              placeholder="—"
+              className="w-16 bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-sm font-bold text-[#1a2340] text-center outline-none focus:border-[#2d7dd2] transition-colors shrink-0"
+            />
+            <span className="text-[10px] text-[#94a3b8] font-medium w-10 text-right shrink-0">/ {paper.maxMark}</span>
+          </div>
+        ))}
+      </div>
       {computedGrade !== null && (
-        <p className="text-xs font-black text-[#2d7dd2] text-center pt-1">
-          Grade {computedGrade} calculated — auto-filled above ↑
-        </p>
+        <div
+          className="mt-2 py-2 px-3 bg-blue-50 rounded-xl text-center"
+          style={{ animation: 'bounce-in 0.4s cubic-bezier(0.34,1.56,0.64,1) both' }}
+        >
+          <p className="text-xs font-black text-[#2d7dd2]">Grade {computedGrade} calculated ✓</p>
+        </div>
       )}
     </div>
   )
@@ -512,6 +556,19 @@ function IBEntry({ board }: { board: string }) {
   ])
   const [bonus, setBonus] = useState(0)
 
+  // Restore saved state on mount
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('odds_ib_state')
+      if (!saved) return
+      const { subjects: s, bonus: b } = JSON.parse(saved)
+      if (Array.isArray(s) && s.length === 6) {
+        setSubjects(s.map((sub: IBSubjectEntry) => ({ ...sub, showCalc: false })))
+        if (typeof b === 'number') setBonus(b)
+      }
+    } catch {}
+  }, [])
+
   const hlCount = subjects.filter(s => s.level === 'HL').length
   const total = subjects.reduce((s, sub) => s + sub.grade, 0) + bonus
   const pct = Math.round((total / 45) * 100)
@@ -546,9 +603,9 @@ function IBEntry({ board }: { board: string }) {
 
       <div className="space-y-3 mb-4">
         {subjects.map((sub, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 p-4">
+          <div key={i} className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
             {/* Subject name + HL/SL */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 px-3 pt-3 pb-2">
               <div className="flex-1 min-w-0">
                 <CustomSelect
                   value={sub.name}
@@ -557,7 +614,7 @@ function IBEntry({ board }: { board: string }) {
                   placeholder={`Subject ${i + 1}…`}
                 />
               </div>
-              <div className="flex rounded-xl border-2 border-gray-200 overflow-hidden shrink-0">
+              <div className="flex rounded-lg border border-gray-200 overflow-hidden shrink-0">
                 {(['HL', 'SL'] as const).map(lvl => (
                   <button
                     key={lvl}
@@ -573,39 +630,44 @@ function IBEntry({ board }: { board: string }) {
                 ))}
               </div>
             </div>
-            {/* Grade buttons */}
-            <div className="flex gap-1.5">
+            {/* Compact grade buttons */}
+            <div className="flex gap-1 px-3 pb-3">
               {[1, 2, 3, 4, 5, 6, 7].map(g => (
                 <button
                   key={g}
                   onClick={() => setGrade(i, g)}
-                  className={`flex-1 py-2 rounded-xl text-sm font-black transition-all border-2 ${
+                  className={`flex-1 h-9 rounded-lg text-sm font-black transition-all border ${
                     sub.grade === g
-                      ? 'bg-[#1a2340] text-white border-[#1a2340]'
-                      : 'bg-gray-50 text-[#374151] border-gray-200 hover:border-[#2d7dd2] hover:text-[#2d7dd2]'
+                      ? 'bg-[#1a2340] text-white border-[#1a2340] shadow-sm'
+                      : 'bg-[#f8fafc] text-[#64748b] border-gray-200 hover:border-[#2d7dd2] hover:text-[#2d7dd2] hover:bg-blue-50'
                   }`}
+                  style={sub.grade === g ? {
+                    animation: 'grade-badge-pop 0.35s cubic-bezier(0.34,1.56,0.64,1) both',
+                  } : {}}
                 >
                   {g}
                 </button>
               ))}
             </div>
             {sub.name && (
-              <button
-                onClick={() => toggleCalc(i)}
-                className="mt-2 text-[10px] font-bold text-[#2d7dd2] hover:underline"
-              >
-                {sub.showCalc ? '▲ Hide calculator' : '▼ Calculate from marks'}
-              </button>
-            )}
-            {sub.showCalc && sub.name && (
-              <SubjectCalcPanel
-                subjectName={sub.name}
-                level={sub.level}
-                onGradeComputed={g => setGradeFromCalc(i, g)}
-              />
+              <div className="px-3 pb-3 border-t border-gray-100 pt-2">
+                <button
+                  onClick={() => toggleCalc(i)}
+                  className="text-[10px] font-bold text-[#2d7dd2] hover:underline flex items-center gap-1"
+                >
+                  {sub.showCalc ? '▲ Hide mark calculator' : '▼ Calculate from marks'}
+                </button>
+                {sub.showCalc && (
+                  <SubjectCalcPanel
+                    subjectName={sub.name}
+                    level={sub.level}
+                    onGradeComputed={g => setGradeFromCalc(i, g)}
+                  />
+                )}
+              </div>
             )}
             {sub.level === 'HL' && hlCount > 4 && (
-              <p className="text-xs text-red-500 mt-1.5 font-medium">Max 4 HL subjects allowed</p>
+              <p className="text-xs text-red-500 px-3 pb-2 font-medium">Max 4 HL subjects allowed</p>
             )}
           </div>
         ))}
@@ -653,7 +715,10 @@ function IBEntry({ board }: { board: string }) {
 
       <div className="sticky bottom-0 pb-6 pt-2 bg-[#f1f5f9]">
         <button
-          onClick={() => router.push(`/odds?step=target&board=${board}&points=${total}`)}
+          onClick={() => {
+            try { sessionStorage.setItem('odds_ib_state', JSON.stringify({ subjects, bonus })) } catch {}
+            router.push(`/odds?step=target&board=${board}&points=${total}`)
+          }}
           disabled={!canProceed}
           className={`w-full font-bold py-4 rounded-2xl text-base transition-colors shadow-lg ${
             canProceed ? 'bg-[#1a2340] text-white hover:bg-[#2d7dd2]' : 'bg-gray-200 text-[#94a3b8] cursor-not-allowed'
@@ -686,6 +751,16 @@ interface APSubject { name: string; score: number | null }
 function APEntry({ board }: { board: string }) {
   const router = useRouter()
   const [subjects, setSubjects] = useState<APSubject[]>([{ name: '', score: null }])
+
+  // Restore saved state on mount
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('odds_ap_state')
+      if (!saved) return
+      const parsed = JSON.parse(saved)
+      if (Array.isArray(parsed) && parsed.length > 0) setSubjects(parsed)
+    } catch {}
+  }, [])
 
   const addSubject = () => setSubjects(prev => [...prev, { name: '', score: null }])
   const removeSubject = (i: number) => setSubjects(prev => prev.filter((_, idx) => idx !== i))
@@ -780,7 +855,10 @@ function APEntry({ board }: { board: string }) {
 
       <div className="sticky bottom-0 pb-6 pt-2 bg-[#f1f5f9]">
         <button
-          onClick={() => router.push(`/odds?step=target&board=${board}&grade=${encodeURIComponent(overallGrade)}`)}
+          onClick={() => {
+            try { sessionStorage.setItem('odds_ap_state', JSON.stringify(subjects)) } catch {}
+            router.push(`/odds?step=target&board=${board}&grade=${encodeURIComponent(overallGrade)}`)
+          }}
           disabled={!canProceed}
           className={`w-full font-bold py-4 rounded-2xl text-base transition-colors shadow-lg ${
             canProceed ? 'bg-[#1a2340] text-white hover:bg-[#2d7dd2]' : 'bg-gray-200 text-[#94a3b8] cursor-not-allowed'

@@ -10,6 +10,10 @@ interface Props {
   note?: string
 }
 
+function numericOnly(e: React.KeyboardEvent) {
+  if (['e', 'E', '+', '-', '.', ','].includes(e.key)) e.preventDefault()
+}
+
 export default function ComponentInputs({ components, marks, onChange, lockedIndices = [], label = 'Your Marks', note }: Props) {
   const enteredCount = marks.filter(m => m !== null).length
 
@@ -31,15 +35,12 @@ export default function ComponentInputs({ components, marks, onChange, lockedInd
         {components.map((comp, i) => {
           const isLocked = lockedIndices.includes(i)
           const mark = marks[i]
-          const isError = mark !== null && (mark < 0 || mark > comp.maxMark)
           const pct = mark !== null ? Math.round((mark / comp.maxMark) * 100) : null
 
           return (
             <div key={i}>
               <div className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition-colors ${
-                isError
-                  ? 'border-red-300 bg-red-50'
-                  : isLocked
+                isLocked
                   ? 'border-gray-100 bg-gray-50'
                   : 'border-gray-200 hover:border-[#2d7dd2]/40 bg-white'
               }`}>
@@ -60,20 +61,19 @@ export default function ComponentInputs({ components, marks, onChange, lockedInd
                     min={0}
                     max={comp.maxMark}
                     value={mark ?? ''}
-                    onChange={e => onChange(i, e.target.value === '' ? null : Number(e.target.value))}
+                    disabled={isLocked}
+                    onKeyDown={numericOnly}
+                    onChange={e => {
+                      const raw = e.target.value.replace(/[^0-9]/g, '')
+                      if (raw === '') { onChange(i, null); return }
+                      onChange(i, Math.min(Number(raw), comp.maxMark))
+                    }}
                     placeholder="—"
-                    className={`w-16 text-center rounded-lg border-2 px-2 py-2 text-base font-black focus:outline-none transition-colors ${
-                      isError
-                        ? 'border-red-400 bg-red-50 text-red-700'
-                        : 'border-gray-200 text-[#1a2340] focus:border-[#2d7dd2]'
-                    }`}
+                    className="w-16 text-center rounded-lg border-2 px-2 py-2 text-base font-black focus:outline-none transition-colors border-gray-200 text-[#1a2340] focus:border-[#2d7dd2]"
                   />
                   <span className="text-sm text-[#94a3b8] font-medium">/{comp.maxMark}</span>
                 </div>
               </div>
-              {isError && (
-                <p className="text-xs text-red-500 mt-1 ml-4">Max is {comp.maxMark}</p>
-              )}
             </div>
           )
         })}

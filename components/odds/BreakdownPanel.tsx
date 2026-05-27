@@ -525,8 +525,8 @@ function LockedView({ onUnlock }: { onUnlock: () => void }) {
       {confetti && <Confetti active={true} />}
 
       {/* Blurred teaser rows */}
-      <div className="relative overflow-hidden rounded-2xl border border-gray-200">
-        <div className="pointer-events-none select-none blur-sm p-5 space-y-3 bg-white">
+      <div className="relative rounded-2xl border border-gray-200" style={{ minHeight: 400 }}>
+        <div className="pointer-events-none select-none blur-sm p-5 space-y-3 bg-white rounded-2xl">
           <div className="h-3 bg-gray-200 rounded w-4/5" />
           <div className="h-3 bg-gray-200 rounded w-3/5" />
           <div className="h-10 bg-gray-100 rounded-xl" />
@@ -535,12 +535,20 @@ function LockedView({ onUnlock }: { onUnlock: () => void }) {
           </div>
           <div className="h-3 bg-gray-200 rounded w-2/3" />
           <div className="h-3 bg-gray-200 rounded w-4/5" />
+          <div className="h-10 bg-gray-100 rounded-xl" />
+          <div className="h-3 bg-gray-200 rounded w-3/4" />
+          <div className="h-3 bg-gray-200 rounded w-1/2" />
+          <div className="h-10 bg-gray-100 rounded-xl" />
+          <div className="h-3 bg-gray-200 rounded w-2/3" />
         </div>
 
-        {/* Gate overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/85 backdrop-blur-[3px] rounded-2xl px-6 py-8">
-          <div className="w-12 h-12 rounded-2xl bg-[#1a2340] flex items-center justify-center mb-3">
-            <span className="text-xl">🔒</span>
+        {/* Gate overlay — justify-start prevents clipping on short screens */}
+        <div className="absolute inset-0 flex flex-col items-center justify-start bg-white/88 backdrop-blur-[3px] rounded-2xl px-6 pt-10 pb-6">
+          <div
+            className="w-14 h-14 rounded-2xl bg-[#1a2340] flex items-center justify-center mb-4 shrink-0"
+            style={{ animation: 'float-emoji 3s ease-in-out infinite' }}
+          >
+            <span className="text-2xl">🔒</span>
           </div>
           <h3 className="font-black text-[#1a2340] text-base mb-1 text-center">Unlock your full breakdown</h3>
           <p className="text-xs text-[#64748b] text-center mb-5 max-w-[240px] leading-relaxed">
