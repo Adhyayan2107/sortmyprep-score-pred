@@ -143,3 +143,18 @@ body {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
+
+@keyframes btn-breathe {
+  0%, 100% { box-shadow: 0 4px 18px rgba(45,125,210,0.35), 0 0 0 0 rgba(45,125,210,0); }
+  50%       { box-shadow: 0 8px 32px rgba(45,125,210,0.55), 0 0 0 6px rgba(45,125,210,0.12); }
+}
+
+@keyframes nav-shake {
+  0%, 78%, 100% { transform: translateX(0) rotate(0deg); }
+  80%  { transform: translateX(-5px) rotate(-2.5deg); }
+  82%  { transform: translateX(5px) rotate(2.5deg); }
+  84%  { transform: translateX(-4px) rotate(-1.5deg); }
+  86%  { transform: translateX(4px) rotate(1.5deg); }
+  88%  { transform: translateX(-2px) rotate(-0.5deg); }
+  90%  { transform: translateX(0) rotate(0deg); }
+}

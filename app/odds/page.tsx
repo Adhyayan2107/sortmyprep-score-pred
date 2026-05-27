@@ -73,6 +73,30 @@ export default async function OddsPage({
         />
 
         <div className="max-w-2xl mx-auto px-4 py-8 pb-16 space-y-6">
+          {/* Waitlist banner */}
+          <a
+            href="https://tinyurl.com/sortmyprepwaitlist"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            style={{ animation: 'card-rise 0.4s 0.1s ease both' }}
+          >
+            <div className="bg-[#1a2340] px-5 py-4 flex items-center gap-4">
+              <div className="text-2xl shrink-0">🎓</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-black text-sm leading-tight">
+                  Want to actually get in? Prep here.
+                </p>
+                <p className="text-white/55 text-xs mt-0.5 leading-snug">
+                  Mark schemes, past papers &amp; study plans for A Level, IB, IGCSE &amp; more.
+                </p>
+              </div>
+              <span className="shrink-0 bg-[#2d7dd2] text-white text-xs font-bold px-3 py-2 rounded-xl whitespace-nowrap">
+                Join Waitlist →
+              </span>
+            </div>
+          </a>
+
           <ResultCard
             verdict={verdict}
             uniName={uniName}

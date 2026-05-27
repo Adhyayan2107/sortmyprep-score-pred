@@ -66,13 +66,27 @@ export default function OddsLanding() {
             />
           </Link>
           <a
-            href="https://prep-hub-35.emergent.host/"
+            href="https://sortmyprep.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-[#1a2340] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-[#2d7dd2] transition-colors"
+            className="relative inline-flex items-center bg-[#1a2340] text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-[#2d7dd2] transition-colors"
+            style={{ animation: 'slide-up-fade 0.45s 0.15s ease both, nav-shake 3.8s 2.5s ease infinite' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-            Join Waitlist
+            {/* Dotted crown — sits right on the top-right edge of the pill */}
+            <span
+              className="absolute flex items-end gap-[2px] pointer-events-none"
+              style={{
+                bottom: 'calc(100% - 8px)',
+                right: '-3px',
+                transform: 'rotate(41deg)',
+                transformOrigin: 'bottom right',
+              }}
+            >
+              <span className="w-[4px] h-[4px] rounded-full bg-[#2d7dd2]" />
+              <span className="w-[4px] h-[7px] rounded-full bg-[#2d7dd2]" />
+              <span className="w-[4px] h-[4px] rounded-full bg-[#2d7dd2]" />
+            </span>
+            sortmyprep.com
           </a>
         </div>
       </header>
@@ -121,32 +135,40 @@ export default function OddsLanding() {
 
         <Link
           href="/odds?step=board"
-          className="inline-flex items-center gap-2 bg-[#1a2340] text-white font-bold px-8 py-4 rounded-2xl text-base shadow-lg hover:bg-[#2d7dd2] transition-colors"
+          className="inline-flex items-center gap-2 bg-[#1a2340] text-white font-bold px-8 py-4 rounded-2xl text-base hover:bg-[#2d7dd2] transition-colors"
           style={{
             animation: wiggle
-              ? 'wiggle-attention 0.6s ease'
-              : 'bounce-in 0.55s 0.32s cubic-bezier(0.34,1.56,0.64,1) both',
+              ? 'wiggle-attention 0.6s ease, btn-breathe 2.4s ease infinite'
+              : 'bounce-in 0.55s 0.32s cubic-bezier(0.34,1.56,0.64,1) both, btn-breathe 2.4s 1.2s ease infinite',
           }}
         >
           Find Out →
         </Link>
 
-        <div className="mt-16 grid grid-cols-3 gap-6 max-w-sm text-center">
-          {[
-            { label: 'Universities', value: '14+', emoji: '🏫' },
-            { label: 'Boards', value: '4', emoji: '📚' },
-            { label: 'Instant', value: '100%', emoji: '⚡' },
-          ].map(({ label, value, emoji }, i) => (
-            <div
-              key={label}
-              style={{ animation: `bounce-in 0.5s ${0.42 + i * 0.09}s ease both` }}
-            >
-              <p className="text-lg mb-0.5">{emoji}</p>
-              <p className="text-2xl font-black text-[#1a2340]">{value}</p>
-              <p className="text-xs text-[#64748b] font-medium mt-0.5">{label}</p>
-            </div>
-          ))}
-        </div>
+        <a
+          href="https://tinyurl.com/sortmyprepwaitlist"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-14 w-full max-w-sm block rounded-2xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform"
+          style={{ animation: 'bounce-in 0.5s 0.5s ease both' }}
+        >
+          <div className="bg-[#1a2340] px-6 pt-5 pb-4 text-left">
+            <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+              Now Open — Free Waitlist
+            </p>
+            <p className="text-white font-black text-lg leading-snug mb-1">
+              Prep smarter.<br />Get into your dream uni.
+            </p>
+            <p className="text-white/55 text-xs leading-relaxed">
+              Real mark schemes, past papers &amp; expert study plans for A Level, IB, IGCSE and more.
+            </p>
+          </div>
+          <div className="bg-[#2d7dd2] px-6 py-3 flex items-center justify-between">
+            <span className="text-white font-bold text-sm">Join the Waitlist →</span>
+            <span className="text-white/70 text-xs">tinyurl.com/sortmyprepwaitlist</span>
+          </div>
+        </a>
       </main>
     </div>
   )
