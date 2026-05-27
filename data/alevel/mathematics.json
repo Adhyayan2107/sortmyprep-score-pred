@@ -6,22 +6,17 @@
     {
       "name": "Paper 1: Pure Mathematics 1",
       "maxMark": 75,
-      "weight": 0.3
+      "weight": 0.375
     },
     {
       "name": "Paper 3: Pure Mathematics 3",
       "maxMark": 75,
-      "weight": 0.3
+      "weight": 0.375
     },
     {
-      "name": "Paper 4: Mechanics",
+      "name": "Paper 4 or 5: Applied (Mechanics or Statistics 1)",
       "maxMark": 50,
-      "weight": 0.2
-    },
-    {
-      "name": "Paper 5: Probability & Statistics 1",
-      "maxMark": 50,
-      "weight": 0.2
+      "weight": 0.25
     }
   ],
   "sessions": [

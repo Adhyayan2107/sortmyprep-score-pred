@@ -1,0 +1,36 @@
+{
+  "subject": "International Mathematics",
+  "board": "CIE",
+  "syllabusCode": "0607",
+  "track": "extended",
+  "components": [
+    {
+      "name": "Paper 2: Non-Calculator",
+      "maxMark": 40,
+      "weight": 0.2
+    },
+    {
+      "name": "Paper 4: Calculator",
+      "maxMark": 120,
+      "weight": 0.6
+    },
+    {
+      "name": "Paper 6: Investigation & Modelling",
+      "maxMark": 40,
+      "weight": 0.2
+    }
+  ],
+  "sessions": [
+    {
+      "id": "CIE Standard",
+      "boundaries": {
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
+        "C": 65,
+        "D": 55,
+        "E": 35
+      }
+    }
+  ]
+}

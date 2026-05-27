@@ -70,8 +70,9 @@ const AS_SUBJECTS = [
 ]
 
 const IGCSE_SUBJECTS = [
-  { label: 'Mathematics',           file: 'mathematics' },
-  { label: 'Additional Mathematics',file: 'additional-mathematics' },
+  { label: 'Mathematics (Extended 0580)', file: 'mathematics' },
+  { label: 'International Mathematics (0607)', file: 'international-mathematics' },
+  { label: 'Additional Mathematics (0606)', file: 'additional-mathematics' },
   { label: 'Physics',               file: 'physics' },
   { label: 'Chemistry',             file: 'chemistry' },
   { label: 'Biology',               file: 'biology' },

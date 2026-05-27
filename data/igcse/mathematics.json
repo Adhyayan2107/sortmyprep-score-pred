@@ -1,16 +1,16 @@
 {
-  "subject": "Mathematics",
+  "subject": "Mathematics (Extended)",
   "board": "CIE",
   "syllabusCode": "0580",
   "track": "extended",
   "components": [
     {
-      "name": "Paper 2 (Short Answer)",
+      "name": "Paper 2: Extended Short Answer",
       "maxMark": 70,
       "weight": 0.35
     },
     {
-      "name": "Paper 4 (Extended)",
+      "name": "Paper 4: Extended Structured Questions",
       "maxMark": 130,
       "weight": 0.65
     }
