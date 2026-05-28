@@ -2790,17 +2790,10 @@ export const UNIVERSITIES: University[] = [
 ]
 
 export const POPULAR_UNI_IDS = [
-  // UK Top
-  'oxford','cambridge','imperial','lse','ucl','kings','warwick','edinburgh','manchester','bristol',
-  'university-of-st-andrews','durham-university','university-of-bath','university-of-bristol',
-  // US Top
-  'harvard-university','stanford-university','yale-university','columbia-university','cornell-university','university-of-chicago',
-  // Canada / Australia / Europe
-  'university-of-toronto','university-of-british-columbia','mcgill','university-of-melbourne','eth-zurich',
-  // Asia
-  'nus','ntu','nyu',
-  // India Notable
-  'ashoka-university','bits-pilani','op-jindal-global-university',
+  // 5 International
+  'oxford', 'cambridge', 'imperial', 'harvard-university', 'nus',
+  // 5 Indian
+  'ashoka-university', 'bits-pilani', 'op-jindal-global-university', 'shiv-nadar-university', 'krea-university',
 ]
 
 export const COURSE_LABELS: Record<string, string> = {
