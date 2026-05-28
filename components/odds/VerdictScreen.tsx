@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { VERDICT_THEME, getVerdictCopy, getScoreDisplay, type Verdict } from '@/lib/verdict-engine'
+import { trackResult } from '@/lib/email-gate'
 
 const VERDICT_EMOJIS: Record<Verdict, { floating: string[]; burst: string[] }> = {
   COMPETITIVE: { floating: ['🎉', '🏆', '⭐', '✨', '🎊'], burst: ['🌟', '🎯', '💫', '🥳', '🎉'] },
@@ -44,6 +45,16 @@ export default function VerdictScreen({
   const [visible, setVisible] = useState(false)
   const [burst, setBurst] = useState(false)
   const emojis = VERDICT_EMOJIS[verdict]
+
+  useEffect(() => {
+    trackResult({
+      board,
+      score: board === 'ib' ? `${points ?? 0} pts` : grade ?? '',
+      university: uniName,
+      course: courseName,
+      verdict,
+    })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const t = setTimeout(() => {
