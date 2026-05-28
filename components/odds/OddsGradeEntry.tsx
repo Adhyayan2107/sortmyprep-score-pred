@@ -28,35 +28,35 @@ const GRADE_COLORS: Record<string, { bg: string; text: string }> = {
 
 // ─── Subject lists ────────────────────────────────────────────────────────────
 const ALEVEL_SUBJECTS = [
-  { label: 'Mathematics',     file: 'mathematics' },
-  { label: 'Physics',         file: 'physics' },
-  { label: 'Chemistry',       file: 'chemistry' },
-  { label: 'Biology',         file: 'biology' },
-  { label: 'Economics',       file: 'economics' },
-  { label: 'Business Studies',file: 'business' },
-  { label: 'Accounting',      file: 'accounting' },
+  { label: 'Mathematics (9709)',      file: 'mathematics' },
+  { label: 'Physics (9702)',          file: 'physics' },
+  { label: 'Chemistry (9701)',        file: 'chemistry' },
+  { label: 'Biology (9700)',          file: 'biology' },
+  { label: 'Economics (9708)',        file: 'economics' },
+  { label: 'Business Studies (9609)', file: 'business' },
+  { label: 'Accounting (9706)',       file: 'accounting' },
 ]
 
 const AS_SUBJECTS = [
-  { label: 'Mathematics',     file: 'mathematics' },
-  { label: 'Physics',         file: 'physics' },
-  { label: 'Chemistry',       file: 'chemistry' },
-  { label: 'Biology',         file: 'biology' },
-  { label: 'Economics',       file: 'economics' },
-  { label: 'Business Studies',file: 'business' },
-  { label: 'Accounting',      file: 'accounting' },
+  { label: 'Mathematics (9709)',      file: 'mathematics' },
+  { label: 'Physics (9702)',          file: 'physics' },
+  { label: 'Chemistry (9701)',        file: 'chemistry' },
+  { label: 'Biology (9700)',          file: 'biology' },
+  { label: 'Economics (9708)',        file: 'economics' },
+  { label: 'Business Studies (9609)', file: 'business' },
+  { label: 'Accounting (9706)',       file: 'accounting' },
 ]
 
 const IGCSE_SUBJECTS = [
   { label: 'Mathematics (Extended 0580)',      file: 'mathematics' },
   { label: 'International Mathematics (0607)', file: 'international-mathematics' },
   { label: 'Additional Mathematics (0606)',    file: 'additional-mathematics' },
-  { label: 'Physics',                          file: 'physics' },
-  { label: 'Chemistry',                        file: 'chemistry' },
-  { label: 'Biology',                          file: 'biology' },
-  { label: 'Economics',                        file: 'economics' },
-  { label: 'Business Studies',                 file: 'business' },
-  { label: 'Accounting',                       file: 'accounting' },
+  { label: 'Physics (0625)',                   file: 'physics' },
+  { label: 'Chemistry (0620)',                 file: 'chemistry' },
+  { label: 'Biology (0610)',                   file: 'biology' },
+  { label: 'Economics (0455)',                 file: 'economics' },
+  { label: 'Business Studies (0450)',          file: 'business' },
+  { label: 'Accounting (0452)',                file: 'accounting' },
 ]
 
 // ─── IB data file map ─────────────────────────────────────────────────────────
@@ -453,24 +453,13 @@ function SubjectCalcPanel({
 
 // ─── IB Entry — named subjects with HL/SL ─────────────────────────────────────
 const IB_ALL_SUBJECTS = [
-  // Group 1: Language A
-  'English A: Literature', 'English A: Language & Literature',
-  'French A: Literature', 'Spanish A: Literature', 'Hindi A: Literature',
-  'Language A: Literature (Other)',
-  // Group 2: Language B
-  'English B', 'French B', 'Spanish B', 'German B',
-  'Mandarin B', 'Japanese B', 'Arabic B', 'Hindi B', 'Korean B',
-  // Group 3: Individuals & Societies
-  'Business Management', 'Economics', 'Geography', 'Global Politics',
-  'History', 'ITGS', 'Philosophy', 'Psychology', 'Social & Cultural Anthropology',
-  // Group 4: Sciences
-  'Biology', 'Chemistry', 'Computer Science', 'Design Technology',
-  'Environmental Systems & Societies', 'Physics', 'Sports, Exercise & Health Science',
-  // Group 5: Mathematics
   'Mathematics: Analysis & Approaches (AA)',
   'Mathematics: Applications & Interpretation (AI)',
-  // Group 6: Arts / extra
-  'Dance', 'Film', 'Music', 'Theatre', 'Visual Arts',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'Economics',
+  'Business Management',
 ]
 
 interface IBSubjectEntry { name: string; level: 'HL' | 'SL'; grade: number; showCalc: boolean }

@@ -20,13 +20,6 @@ const BOARDS = [
     desc: 'Grades A*–E',
   },
   {
-    id: 'ap',
-    label: 'AP',
-    full: 'Advanced Placement (US)',
-    icon: '🇺🇸',
-    desc: 'Scores 1–5',
-  },
-  {
     id: 'igcse',
     label: 'IGCSE',
     full: 'Cambridge IGCSE',
