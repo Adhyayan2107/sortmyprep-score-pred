@@ -42,9 +42,14 @@ export default function UniCoursePicker({
 
   const filtered = useMemo(() => {
     if (!query.trim()) return []
+    // collapse dropdown once query exactly matches the selected uni name
+    if (selectedUni) {
+      const name = UNIVERSITIES.find(u => u.id === selectedUni)?.name ?? ''
+      if (query === name) return []
+    }
     const q = query.toLowerCase()
     return UNIVERSITIES.filter(u => u.name.toLowerCase().includes(q) || u.location.toLowerCase().includes(q))
-  }, [query])
+  }, [query, selectedUni])
 
   const handleSeeOdds = () => {
     if (!selectedUni || !selectedCourse) return
@@ -82,7 +87,7 @@ export default function UniCoursePicker({
             type="text"
             placeholder="Search university..."
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={e => { setQuery(e.target.value); setSelectedUni(null) }}
             className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#1a2340] placeholder:text-[#94a3b8] outline-none focus:border-[#2d7dd2] mb-3"
           />
 
@@ -92,7 +97,7 @@ export default function UniCoursePicker({
                 <button
                   key={u.id}
                   onClick={() => { setSelectedUni(u.id); setQuery(u.name) }}
-                  className="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0"
+                  className={`w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0 ${selectedUni === u.id ? 'bg-blue-50' : ''}`}
                 >
                   <span className="font-semibold text-[#1a2340]">{u.name}</span>
                   <span className="text-[#94a3b8] ml-2">{u.location}</span>
@@ -105,7 +110,10 @@ export default function UniCoursePicker({
             {popularUnis.map(u => u && (
               <button
                 key={u.id}
-                onClick={() => setSelectedUni(u.id)}
+                onClick={() => {
+                  if (selectedUni === u.id) { setSelectedUni(null) }
+                  else { setSelectedUni(u.id); setQuery('') }
+                }}
                 className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
                   selectedUni === u.id
                     ? 'bg-[#1a2340] text-white border-[#1a2340]'
