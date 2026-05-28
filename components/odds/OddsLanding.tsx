@@ -162,19 +162,42 @@ export default function OddsLanding() {
   return (
     <div className="relative min-h-screen bg-[#f1f5f9] flex flex-col overflow-hidden">
 
-      {/* ── Page-level background cliparts (large, low opacity, static) ── */}
-      <GradCap
-        w={160}
-        style={{ opacity: 0.06, position: 'absolute', top: 72, right: -52, transform: 'rotate(14deg)' }}
-      />
-      <OpenBook
-        w={140}
-        style={{ opacity: 0.05, position: 'absolute', bottom: 80, left: -42, transform: 'rotate(-8deg)' }}
-      />
-      <TrophyShape
-        w={96}
-        style={{ opacity: 0.05, position: 'absolute', top: '52%', right: -28, transform: 'rotate(6deg)' }}
-      />
+      {/* ── Scattered page cliparts — edge-anchored so overflow-hidden clips them cleanly ── */}
+
+      {/* Grad cap — top-left, drifts up */}
+      <GradCap w={92} style={{
+        opacity: 0.13,
+        position: 'absolute', top: 88, left: -28,
+        animation: 'clipart-float-up 5.5s 0.8s ease-in-out infinite',
+      }} />
+
+      {/* Star — top-right, spins and sways */}
+      <StarShape w={72} style={{
+        opacity: 0.12,
+        position: 'absolute', top: 180, right: -20,
+        animation: 'clipart-spin-sway 7s 1.4s ease-in-out infinite',
+      }} />
+
+      {/* Open book — mid-left, drifts down */}
+      <OpenBook w={100} style={{
+        opacity: 0.11,
+        position: 'absolute', top: '42%', left: -36,
+        animation: 'clipart-float-down 6.5s 0.2s ease-in-out infinite',
+      }} />
+
+      {/* Pencil — mid-right, sways left */}
+      <PencilShape w={80} style={{
+        opacity: 0.11,
+        position: 'absolute', top: '58%', right: -26,
+        animation: 'clipart-sway-left 5s 2s ease-in-out infinite',
+      }} />
+
+      {/* Trophy — bottom-right, breathes */}
+      <TrophyShape w={86} style={{
+        opacity: 0.10,
+        position: 'absolute', bottom: 160, right: -24,
+        animation: 'clipart-breathe 6s 0.5s ease-in-out infinite',
+      }} />
 
       {/* ── Header ── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm">
@@ -227,61 +250,14 @@ export default function OddsLanding() {
           {count.toLocaleString()}+ students have already checked
         </div>
 
-        {/* Headline with floating outline cliparts */}
-        <div className="relative">
-          {/* left-top: graduation cap */}
-          <GradCap
-            w={50}
-            style={{
-              opacity: 0.14,
-              position: 'absolute',
-              top: '-4px',
-              left: '-64px',
-              animation: 'float-emoji 3.2s 0s ease-in-out infinite',
-            }}
-          />
-          {/* right-top: star */}
-          <StarShape
-            w={36}
-            style={{
-              opacity: 0.14,
-              position: 'absolute',
-              top: '18px',
-              right: '-54px',
-              animation: 'float-emoji 2.8s 0.6s ease-in-out infinite',
-            }}
-          />
-          {/* left-bottom: open book */}
-          <OpenBook
-            w={48}
-            style={{
-              opacity: 0.13,
-              position: 'absolute',
-              top: '68px',
-              left: '-60px',
-              animation: 'float-emoji 3.5s 1.2s ease-in-out infinite',
-            }}
-          />
-          {/* right-bottom: pencil */}
-          <PencilShape
-            w={40}
-            style={{
-              opacity: 0.13,
-              position: 'absolute',
-              top: '80px',
-              right: '-56px',
-              animation: 'float-emoji 2.6s 0.3s ease-in-out infinite',
-            }}
-          />
-
-          <h1
-            className="text-4xl sm:text-5xl font-black text-[#1a2340] tracking-tight leading-tight max-w-md mb-4"
-            style={{ animation: 'bounce-in 0.55s 0.1s ease both' }}
-          >
-            Will your grade<br />
-            <span className="text-[#2d7dd2]">get you in?</span>
-          </h1>
-        </div>
+        {/* Headline */}
+        <h1
+          className="text-4xl sm:text-5xl font-black text-[#1a2340] tracking-tight leading-tight max-w-md mb-4"
+          style={{ animation: 'bounce-in 0.55s 0.1s ease both' }}
+        >
+          Will your grade<br />
+          <span className="text-[#2d7dd2]">get you in?</span>
+        </h1>
 
         <p
           className="text-[#64748b] text-sm sm:text-base max-w-sm leading-relaxed mb-10"

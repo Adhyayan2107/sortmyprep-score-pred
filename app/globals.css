@@ -158,3 +158,26 @@ body {
   88%  { transform: translateX(-2px) rotate(-0.5deg); }
   90%  { transform: translateX(0) rotate(0deg); }
 }
+
+/* ── Clipart idle animations ── */
+@keyframes clipart-float-up {
+  0%, 100% { transform: translateY(0px)   rotate(-9deg); }
+  50%       { transform: translateY(-24px) rotate(-3deg); }
+}
+@keyframes clipart-float-down {
+  0%, 100% { transform: translateY(0px)  rotate(8deg); }
+  50%       { transform: translateY(20px) rotate(13deg); }
+}
+@keyframes clipart-spin-sway {
+  0%, 100% { transform: rotate(14deg) scale(1); }
+  40%       { transform: rotate(26deg) scale(1.08); }
+  70%       { transform: rotate(8deg)  scale(0.96); }
+}
+@keyframes clipart-sway-left {
+  0%, 100% { transform: translateX(0px)  rotate(-20deg); }
+  50%       { transform: translateX(-12px) rotate(-10deg); }
+}
+@keyframes clipart-breathe {
+  0%, 100% { transform: scale(1)    rotate(9deg); }
+  50%       { transform: scale(1.13) rotate(15deg); }
+}
