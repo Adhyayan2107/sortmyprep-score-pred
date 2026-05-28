@@ -7,12 +7,24 @@ export function getStoredEmail(): string | null {
 
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzS5vGIU_22mNIPSJH3Js5mhlHZhKlAgomjARADwbpJOYlEsVVl2ky4JBB2S-ThKOiKhw/exec'
 
-export function storeEmail(email: string): void {
+export function storeEmail(
+  email: string,
+  data?: { board?: string; score?: string; university?: string; course?: string; verdict?: string },
+): void {
   if (typeof window === 'undefined') return
   localStorage.setItem(KEY, email)
   fetch(SHEET_URL, {
     method: 'POST',
     mode: 'no-cors',
-    body: JSON.stringify({ email, timestamp: new Date().toISOString(), source: 'grade-calc' }),
+    body: JSON.stringify({
+      email,
+      timestamp:  new Date().toISOString(),
+      source:     'grade-calc',
+      board:      data?.board      ?? '',
+      score:      data?.score      ?? '',
+      university: data?.university ?? '',
+      course:     data?.course     ?? '',
+      verdict:    data?.verdict    ?? '',
+    }),
   }).catch(() => {})
 }

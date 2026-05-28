@@ -500,7 +500,21 @@ function UnlockedView({
 }
 
 // ─── Email gate (locked view) ─────────────────────────────────────────────────
-function LockedView({ onUnlock }: { onUnlock: () => void }) {
+function LockedView({
+  onUnlock,
+  board,
+  score,
+  university,
+  course,
+  verdict,
+}: {
+  onUnlock: () => void
+  board: string
+  score: string
+  university: string
+  course: string
+  verdict: string
+}) {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -515,7 +529,7 @@ function LockedView({ onUnlock }: { onUnlock: () => void }) {
       return
     }
     setLoading(true)
-    storeEmail(email)
+    storeEmail(email, { board, score, university, course, verdict })
     setConfetti(true)
     setTimeout(() => { setLoading(false); onUnlock() }, 1400)
   }
@@ -623,7 +637,14 @@ export default function BreakdownPanel({
           grade={grade}
         />
       ) : (
-        <LockedView onUnlock={() => setUnlocked(true)} />
+        <LockedView
+          onUnlock={() => setUnlocked(true)}
+          board={board}
+          score={board === 'ib' ? `${points ?? 0} pts` : grade ?? ''}
+          university={uni?.name ?? ''}
+          course={courseName}
+          verdict={verdict}
+        />
       )}
     </div>
   )

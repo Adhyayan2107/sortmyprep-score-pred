@@ -135,72 +135,6 @@ function getLiveCount(): number {
   return BASE + daysSince * 9
 }
 
-// ── Waitlist email form ────────────────────────────────────────
-function WaitlistForm() {
-  const [email, setEmail]   = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (status !== 'idle') return
-    setStatus('loading')
-    try {
-      await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'landing' }),
-      })
-    } catch {}
-    setStatus('done')
-  }
-
-  return (
-    <div
-      className="mt-14 w-full max-w-sm rounded-2xl overflow-hidden shadow-lg"
-      style={{ animation: 'bounce-in 0.5s 0.5s ease both' }}
-    >
-      <div className="bg-[#1a2340] px-6 pt-5 pb-5 text-left">
-        <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
-          Now Open — Free Waitlist
-        </p>
-        <p className="text-white font-black text-lg leading-snug mb-1">
-          Prep smarter.<br />Get into your dream uni.
-        </p>
-        <p className="text-white/55 text-xs leading-relaxed mb-4">
-          Real mark schemes, past papers &amp; expert study plans for A Level, IB, IGCSE and more.
-        </p>
-        {status === 'done' ? (
-          <p className="text-emerald-400 font-bold text-sm py-1">
-            You&apos;re on the list ✓ — We&apos;ll be in touch!
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <input
-              type="email"
-              required
-              placeholder="your@email.com"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="flex-1 min-w-0 bg-white/10 text-white placeholder:text-white/40 text-sm rounded-xl px-3 py-2.5 outline-none focus:ring-2 focus:ring-[#2d7dd2]"
-            />
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="shrink-0 bg-[#2d7dd2] text-white font-bold text-sm px-4 py-2.5 rounded-xl hover:bg-[#2563eb] transition-colors"
-            >
-              {status === 'loading' ? '…' : 'Join →'}
-            </button>
-          </form>
-        )}
-      </div>
-      <div className="bg-[#2d7dd2] px-6 py-2.5 flex items-center justify-between">
-        <span className="text-white font-bold text-sm">Join the Waitlist</span>
-        <span className="text-white/70 text-xs">sortmyprep.com</span>
-      </div>
-    </div>
-  )
-}
 
 // ── Main component ─────────────────────────────────────────────
 export default function OddsLanding() {
@@ -368,7 +302,30 @@ export default function OddsLanding() {
           Find Out →
         </Link>
 
-        <WaitlistForm />
+        <a
+          href="https://tinyurl.com/sortmyprepwaitlist"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-14 w-full max-w-sm block rounded-2xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform"
+          style={{ animation: 'bounce-in 0.5s 0.5s ease both' }}
+        >
+          <div className="bg-[#1a2340] px-6 pt-5 pb-4 text-left">
+            <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+              Now Open — Free Waitlist
+            </p>
+            <p className="text-white font-black text-lg leading-snug mb-1">
+              Prep smarter.<br />Get into your dream uni.
+            </p>
+            <p className="text-white/55 text-xs leading-relaxed">
+              Real mark schemes, past papers &amp; expert study plans for A Level, IB, IGCSE and more.
+            </p>
+          </div>
+          <div className="bg-[#2d7dd2] px-6 py-3 flex items-center justify-between">
+            <span className="text-white font-bold text-sm">Join the Waitlist →</span>
+            <span className="text-white/70 text-xs">tinyurl.com/sortmyprepwaitlist</span>
+          </div>
+        </a>
       </main>
     </div>
   )
