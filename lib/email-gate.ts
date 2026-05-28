@@ -15,7 +15,8 @@ export function trackResult(data: {
   verdict: string
 }): void {
   if (typeof window === 'undefined') return
-  const email = getStoredEmail() ?? ''
+  const email = getStoredEmail()
+  if (!email) return  // first-timers: storeEmail() captures everything when they unlock
   fetch(SHEET_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -27,7 +28,7 @@ export function trackResult(data: {
       university: data.university,
       course:     data.course,
       verdict:    data.verdict,
-      source:     email ? 'result-known' : 'result-anon',
+      source:     'result-known',
     }),
   }).catch(() => {})
 }
