@@ -9,7 +9,7 @@
       "weight": 0.6
     },
     {
-      "name": "Paper 2: Pure Mathematics 2",
+      "name": "Paper 5: Probability & Statistics 1",
       "maxMark": 50,
       "weight": 0.4
     }
@@ -18,8 +18,9 @@
     {
       "id": "CIE Standard",
       "boundaries": {
-        "A": 85,
-        "B": 75,
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
         "C": 65,
         "D": 55,
         "E": 35

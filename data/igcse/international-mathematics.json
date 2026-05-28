@@ -2,22 +2,21 @@
   "subject": "International Mathematics",
   "board": "CIE",
   "syllabusCode": "0607",
-  "track": "extended",
   "components": [
     {
-      "name": "Paper 2: Non-Calculator",
-      "maxMark": 40,
-      "weight": 0.2
+      "name": "Paper 2: Non-Calculator (Extended)",
+      "maxMark": 75,
+      "weight": 0.375
     },
     {
-      "name": "Paper 4: Calculator",
-      "maxMark": 120,
-      "weight": 0.6
+      "name": "Paper 4: Calculator (Extended)",
+      "maxMark": 75,
+      "weight": 0.375
     },
     {
       "name": "Paper 6: Investigation & Modelling",
-      "maxMark": 40,
-      "weight": 0.2
+      "maxMark": 50,
+      "weight": 0.25
     }
   ],
   "sessions": [

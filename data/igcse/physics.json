@@ -5,19 +5,19 @@
   "track": "extended",
   "components": [
     {
-      "name": "Paper 2 (Multiple Choice Extended)",
+      "name": "Paper 2: Multiple Choice (Extended)",
       "maxMark": 40,
-      "weight": 0.3
+      "weight": 0.25
     },
     {
-      "name": "Paper 4 (Theory Extended)",
+      "name": "Paper 4: Theory (Extended)",
       "maxMark": 80,
       "weight": 0.5
     },
     {
-      "name": "Paper 6 (Alternative to Practical)",
+      "name": "Paper 5 or 6: Practical / Alternative to Practical",
       "maxMark": 40,
-      "weight": 0.2
+      "weight": 0.25
     }
   ],
   "sessions": [

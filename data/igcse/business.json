@@ -2,15 +2,14 @@
   "subject": "Business Studies",
   "board": "CIE",
   "syllabusCode": "0450",
-  "track": "core",
   "components": [
     {
-      "name": "Paper 1 (Short Answer & Data Response)",
+      "name": "Paper 1: Short Answer & Data Response",
       "maxMark": 80,
       "weight": 0.5
     },
     {
-      "name": "Paper 2 (Case Study)",
+      "name": "Paper 2: Case Study",
       "maxMark": 80,
       "weight": 0.5
     }
@@ -24,9 +23,7 @@
         "B": 74,
         "C": 65,
         "D": 55,
-        "E": 35,
-        "F": 25,
-        "G": 15
+        "E": 35
       }
     }
   ]

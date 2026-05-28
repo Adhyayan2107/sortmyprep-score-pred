@@ -4,27 +4,23 @@
   "syllabusCode": "9700",
   "components": [
     {
-      "name": "Paper 1: Multiple Choice",
+      "name": "Paper 1: Multiple Choice (AS)",
       "maxMark": 40,
-      "weight": 0.31
+      "weight": 0.4
     },
     {
       "name": "Paper 2: AS Level Structured Questions",
       "maxMark": 60,
-      "weight": 0.46
-    },
-    {
-      "name": "Paper 3: Advanced Practical Skills",
-      "maxMark": 40,
-      "weight": 0.23
+      "weight": 0.6
     }
   ],
   "sessions": [
     {
       "id": "CIE Standard",
       "boundaries": {
-        "A": 85,
-        "B": 75,
+        "Astar": 92,
+        "A": 83,
+        "B": 74,
         "C": 65,
         "D": 55,
         "E": 35
