@@ -91,7 +91,7 @@ export default function UniCoursePicker({
               {filtered.map(u => u && (
                 <button
                   key={u.id}
-                  onClick={() => { setSelectedUni(u.id); setQuery('') }}
+                  onClick={() => { setSelectedUni(u.id); setQuery(u.name) }}
                   className="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0"
                 >
                   <span className="font-semibold text-[#1a2340]">{u.name}</span>

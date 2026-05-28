@@ -62,6 +62,7 @@ export default async function OddsPage({
         </header>
 
         <VerdictScreen
+          key={`${board}-${uni}-${course}-${grade ?? points}`}
           verdict={verdict}
           uniName={uniName}
           uniLocation={uniData?.location ?? ''}

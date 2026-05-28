@@ -127,7 +127,7 @@ export default function VerdictScreen({
         </div>
 
         <p className="text-white/70 text-sm sm:text-base max-w-sm mx-auto leading-relaxed mb-8">
-          {copy}
+          {verdict === 'STRONG_REACH' ? "You probably aren't getting in." : copy}
         </p>
 
         <div

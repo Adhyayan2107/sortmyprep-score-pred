@@ -4,24 +4,14 @@
   "syllabusCode": "9609",
   "components": [
     {
-      "name": "Paper 1: Business Concepts 1 (AS)",
-      "maxMark": 40,
-      "weight": 0.2
-    },
-    {
-      "name": "Paper 2: Business Concepts 2 (AS)",
+      "name": "Paper 3: Business Decision Making",
       "maxMark": 60,
-      "weight": 0.3
+      "weight": 0.6
     },
     {
-      "name": "Paper 3: Business Decision Making (A Level)",
-      "maxMark": 60,
-      "weight": 0.3
-    },
-    {
-      "name": "Paper 4: Business Strategy (A Level)",
+      "name": "Paper 4: Business Strategy",
       "maxMark": 40,
-      "weight": 0.2
+      "weight": 0.4
     }
   ],
   "sessions": [

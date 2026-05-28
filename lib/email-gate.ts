@@ -20,15 +20,16 @@ export function trackResult(data: {
   fetch(SHEET_URL, {
     method: 'POST',
     mode: 'no-cors',
+    keepalive: true,
     body: JSON.stringify({
-      timestamp:  new Date().toISOString(),
       email,
+      timestamp:  new Date().toISOString(),
+      source:     'result-known',
       board:      data.board,
       score:      data.score,
       university: data.university,
       course:     data.course,
       verdict:    data.verdict,
-      source:     'result-known',
     }),
   }).catch(() => {})
 }

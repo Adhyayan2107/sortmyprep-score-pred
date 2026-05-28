@@ -4,24 +4,14 @@
   "syllabusCode": "9706",
   "components": [
     {
-      "name": "Paper 1: Multiple Choice (AS)",
-      "maxMark": 30,
-      "weight": 0.122
-    },
-    {
-      "name": "Paper 2: Structured Questions (AS)",
-      "maxMark": 90,
-      "weight": 0.367
-    },
-    {
-      "name": "Paper 3: Financial Accounting (A Level)",
+      "name": "Paper 3: Financial Accounting",
       "maxMark": 75,
-      "weight": 0.306
+      "weight": 0.6
     },
     {
-      "name": "Paper 4: Cost & Management Accounting (A Level)",
+      "name": "Paper 4: Cost and Management Accounting",
       "maxMark": 50,
-      "weight": 0.205
+      "weight": 0.4
     }
   ],
   "sessions": [
