@@ -195,7 +195,7 @@ export default function OddsLanding() {
       {/* Trophy — bottom-left, breathes */}
       <TrophyShape w={86} style={{
         opacity: 0.10,
-        position: 'absolute', bottom: 160, left: -24,
+        position: 'absolute', bottom: 60, left: -24,
         animation: 'clipart-breathe 6s 0.5s ease-in-out infinite',
       }} />
 
