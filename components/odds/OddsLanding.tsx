@@ -127,36 +127,39 @@ function TrophyShape({ w = 48, style }: { w?: number; style?: React.CSSPropertie
   )
 }
 
-// ── Live student count ─────────────────────────────────────────
-function getLiveCount(): number {
-  const BASE = 4247
-  const BASE_DATE = new Date('2025-01-01').getTime()
-  const daysSince = Math.max(0, Math.floor((Date.now() - BASE_DATE) / 86_400_000))
-  return BASE + daysSince * 9
-}
-
+const COUNTER_BASE = 4247
 
 // ── Main component ─────────────────────────────────────────────
 export default function OddsLanding() {
-  const target = getLiveCount()
-  const start  = Math.max(4247, target - 47)
-  const [count, setCount] = useState(start)
+  const [count, setCount] = useState(COUNTER_BASE)
   const [wiggle, setWiggle] = useState(false)
 
   useEffect(() => {
-    const duration = 1400
-    const startTime = performance.now()
-    const raf = requestAnimationFrame(function tick(now) {
-      const t    = Math.min((now - startTime) / duration, 1)
-      const ease = 1 - Math.pow(1 - t, 3)
-      setCount(Math.round(start + (target - start) * ease))  // eslint-disable-line react-hooks/exhaustive-deps
-      if (t < 1) requestAnimationFrame(tick)
-    })
+    let rafId: number | null = null
+
+    function animateTo(target: number) {
+      const start = Math.max(COUNTER_BASE, target - 47)
+      const duration = 1400
+      const startTime = performance.now()
+      function tick(now: number) {
+        const t    = Math.min((now - startTime) / duration, 1)
+        const ease = 1 - Math.pow(1 - t, 3)
+        setCount(Math.round(start + (target - start) * ease))
+        if (t < 1) rafId = requestAnimationFrame(tick)
+        else rafId = null
+      }
+      rafId = requestAnimationFrame(tick)
+    }
+
+    fetch('/api/counter')
+      .then(r => r.json())
+      .then(({ count: real }) => animateTo(typeof real === 'number' ? real : COUNTER_BASE))
+      .catch(() => animateTo(COUNTER_BASE))
 
     const w1 = setTimeout(() => { setWiggle(true);  setTimeout(() => setWiggle(false), 700) }, 2200)
     const w2 = setTimeout(() => { setWiggle(true);  setTimeout(() => setWiggle(false), 700) }, 5000)
 
-    return () => { cancelAnimationFrame(raf); clearTimeout(w1); clearTimeout(w2) }
+    return () => { if (rafId !== null) cancelAnimationFrame(rafId); clearTimeout(w1); clearTimeout(w2) }
   }, [])
 
   return (
@@ -288,13 +291,13 @@ export default function OddsLanding() {
           <div className="bg-[#1a2340] px-6 pt-5 pb-4 text-left">
             <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
-              Now Open — Free Waitlist
+              Join the waitlist for priority access
             </p>
             <p className="text-white font-black text-lg leading-snug mb-1">
               Prep smarter.<br />Get into your dream uni.
             </p>
             <p className="text-white/55 text-xs leading-relaxed">
-              Real mark schemes, past papers &amp; expert study plans for A Level, IB, IGCSE and more.
+              Step-by-step solutions for all past papers; unlimited, personalised exam style questions &amp; 24/7 AI Tutor
             </p>
           </div>
           <div className="bg-[#2d7dd2] px-6 py-3 flex items-center justify-between">
